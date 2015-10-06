@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "Auction";
+}
+
+<h2>Aukcja</h2>
+
+@section style
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/timeline.css">
+}
+
+<div class="row">
+    <div class="col-xs-4">
+        <dl class="dl-horizontal">
+            <dt>Numer aukcji</dt>
+            <dd>54321</dd>
+            <dt>Nazwa produktu</dt>
+            <dd>Materiały</dd>
+            <dt>Ilość</dt>
+            <dd>10 sztuk</dd>
+            <dt>Firma</dt>
+            <dd>Zab-Wik Sp. z o.o.</dd>
+            <dt>Cena minimalna</dt>
+            <dd>1000 PLN</dd>
+        </dl>
+    </div>
+
+    <div class="col-xs-6">
+        <dl class="dl-horizontal">
+            <dt>Aktualna cena</dt>
+            <dd>1200 PLN</dd>
+            <dt>Data oraz godzina zamknięcia</dt>
+            <dd>2015-06-14 22:55:24</dd>
+        </dl>
+
+    </div>
+</div>
+
+<div class="row" style="margin-bottom: 25px;">
+    <form class="form-inline">
+        <label class="col-xs-2">Zaproponuj kwote</label>
+        <div class="form-group col-xs-4">
+            <div class="input-group">
+                <div class="input-group-addon">PLN</div>
+                <input type="text" class="form-control" id="exampleInputAmount" placeholder="Kwota">
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <button type="submit" class="btn btn-primary">Licytuj</button>
+        </div>
+    </form>
+</div>
+
+
+
+
+<div class="container">
+    <div class="page-header">
+        <h2 id="timeline">Przebieg aukcji</h2>
+    </div>
+    <ul class="timeline">
+        <li>
+            <div class="timeline-badge"><i class="glyphicon glyphicon-credit-card"></i></div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <h4 class="timeline-title">Łukasz Z</h4>
+                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 2015-06-14 21:47:43</small></p>
+                </div>
+                <div class="timeline-body">
+                    <p>Wystawienie aukcji o numerze 54321. Cena minimalna wynosi 1000 PLN.</p>
+                </div>
+            </div>
+        </li>
+        <li class="timeline-inverted">
+            <div class="timeline-badge info"><i class="glyphicon glyphicon-thumbs-up"></i></div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <h4 class="timeline-title">Piotr K</h4>
+                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 2015-06-14 21:50:24</small></p>
+                </div>
+                <div class="timeline-body">
+                    <p>Użytkownik zaproponował cene 1050 PLN.</p>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="timeline-badge danger"><i class="glyphicon glyphicon-thumbs-up"></i></div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <h4 class="timeline-title">Jakub S</h4>
+                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 2015-06-14 21:52:04</small></p>
+                </div>
+                <div class="timeline-body">
+                    <p>Użytkownik zaproponował cene 1100 PLN.</p>
+                </div>
+            </div>
+        </li>
+        <li class="timeline-inverted">
+            <div class="timeline-badge success"><i class="glyphicon glyphicon-thumbs-up"></i></div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <h4 class="timeline-title">Ilona K</h4>
+                    <p>
+                        <small class="text-muted"><i class="glyphicon glyphicon-time"></i> 2015-06-14 21:52:57</small>
+                    </p>
+                </div>
+                <div class="timeline-body">
+                    <p>Użytkownik zaproponował cene 1125 PLN.</p>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="timeline-badge info"><i class="glyphicon glyphicon-thumbs-up"></i></div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <h4 class="timeline-title">Piotr K</h4>
+                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 2015-06-14 21:55:24</small>
+                </div>
+                <div class="timeline-body">
+                    <p>Użytkownik zaproponował cene 1200 PLN.</p>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="timeline-badge info"><i class="glyphicon glyphicon-floppy-disk"></i></div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <h4 class="timeline-title">Piotr K</h4>
+                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 2015-06-14 22:55:24</small>
+                </div>
+                <div class="timeline-body">
+                    <p>Aukcja zakończona, użytkownik Piotr K wygrał licytacje z zaproponowaną kwotą 1200 PLN.</p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
