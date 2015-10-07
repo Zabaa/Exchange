@@ -20,22 +20,24 @@ namespace Exchange.Domain
             }
             set
             {
-                if (_price == value)
-                {
-                    return;
-                }
+                //if (_price == value)
+                //{
+                //    return;
+                //}
+
+                //_price = value;
+                //LastChangeDate = DateTime.Now;
+
+                //if (DayOpen == 0)
+                //{
+                //    DayOpen = _price;
+                //}
 
                 _price = value;
-                LastChangeDate = DateTime.Now;
-
-                if (DayOpen == 0)
-                {
-                    DayOpen = _price;
-                }
             }
         }
 
-        public decimal DayOpen { get; private set; }
+        public decimal DayOpen { get; set; }
 
         public decimal Change
         {

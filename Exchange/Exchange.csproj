@@ -100,6 +100,14 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="TableDependency, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SqlTableDependency.4.1.0.0\lib\TableDependency.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TableDependency.SqlClient, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SqlTableDependency.4.1.0.0\lib\TableDependency.SqlClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -176,6 +184,7 @@
     </Compile>
     <Compile Include="Hubs\StockMonitor\StockMonitor.cs" />
     <Compile Include="Hubs\StockMonitor\StockMonitorHub.cs" />
+    <Compile Include="Infrastructure\ExchangeConfiguration.cs" />
     <Compile Include="Infrastructure\DbInitializer.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />

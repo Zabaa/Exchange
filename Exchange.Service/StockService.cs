@@ -26,13 +26,13 @@ namespace Exchange.Service
                     command.CommandType = CommandType.StoredProcedure;
                     command.Notification = null;
 
-                    SqlDependency sqlDependency = new SqlDependency(command);
-                    sqlDependency.OnChange += new OnChangeEventHandler(
-                        (sender, args) =>
-                        {
-                            if (StockChanged != null && args.Type == SqlNotificationType.Change)
-                                StockChanged(sender, args);
-                        });
+                    //SqlDependency sqlDependency = new SqlDependency(command);
+                    //sqlDependency.OnChange += new OnChangeEventHandler(
+                    //    (sender, args) =>
+                    //    {
+                    //        if (StockChanged != null && args.Type == SqlNotificationType.Change)
+                    //            StockChanged(sender, args);
+                    //    });
 
 
                     if(connnection.State == ConnectionState.Closed)
@@ -45,7 +45,8 @@ namespace Exchange.Service
                             Id = x.GetInt32(0),
                             Symbol = x.GetString(1),
                             Price = x.GetDecimal(2),
-                            LastChangeDate = x.GetDateTime(3)
+                            DayOpen = x.GetDecimal(3),
+                            LastChangeDate = x.GetDateTime(4)
                         }).ToList();
                     }
                 }

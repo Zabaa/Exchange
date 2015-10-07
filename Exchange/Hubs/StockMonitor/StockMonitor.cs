@@ -8,10 +8,15 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System.Threading;
 using Exchange.Service;
+using TableDependency.SqlClient;
+using System.Configuration;
+using TableDependency.EventArgs;
+using TableDependency.Enums;
+using Exchange.Infrastructure;
 
 namespace Exchange.Hubs.StockMonitor
 {
-    public class StockMonitor
+    public class StockMonitor : IDisposable
     {
         private static readonly Lazy<StockMonitor> _instance =
             new Lazy<StockMonitor>(
@@ -31,20 +36,42 @@ namespace Exchange.Hubs.StockMonitor
 
         private readonly StockService _stockService;
 
+        private static SqlTableDependency<Stock> _tableDependency;
+
         private StockMonitor(IHubConnectionContext<dynamic> clients)
         {
             Clients = clients;
             _stockService = new StockService();
-            _stockService.StockChanged += (sender, args) =>
+            //_stockService.StockChanged += (sender, args) =>
+            //{
+            //    var stocks = _stockService.GetStocks();
+            //    _stocks.Clear();
+            //    foreach (var stock in stocks)
+            //    {
+            //        _stocks.TryAdd(stock.Symbol, stock);
+            //    }
+            //    BroadcastStocksPrice(_stocks.Values);
+            //};
+
+            string connectionString = ExchangeConfiguration.ConnectionString;
+
+            _tableDependency = new SqlTableDependency<Stock>(connectionString, "Stock");
+            _tableDependency.OnChanged += StockTableChanged;
+            _tableDependency.OnError += _tableDependency_OnError;
+            _tableDependency.Start();
+        }
+
+        private void _tableDependency_OnError(object sender, ErrorEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void StockTableChanged(object sender, RecordChangedEventArgs<Stock> e)
+        {
+            if (e.ChangeType != ChangeType.None)
             {
-                var stocks = _stockService.GetStocks();
-                _stocks.Clear();
-                foreach (var stock in stocks)
-                {
-                    _stocks.TryAdd(stock.Symbol, stock);
-                }
-                BroadcastStocksPrice(_stocks.Values);
-            };
+                BroadcastStockPrice(e.Entity);
+            }
         }
 
         public static StockMonitor Instance
@@ -123,8 +150,37 @@ namespace Exchange.Hubs.StockMonitor
 
         private void BroadcastStockPrice(Stock stock)
         {
-            //TODO: zmodyfikuj ponizsza metode w js aby bila po dane i od razu rejestrowala notyfikator
             Clients.All.updateStockPrice(stock);
         }
+
+        #region Dispose
+
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _tableDependency.Stop();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        ~StockMonitor()
+        {
+            Dispose(true);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
     }
 }
