@@ -23,12 +23,6 @@ namespace Exchange.Controllers
         // GET: StockMonitor
         public ActionResult Index()
         {
-            _stockService.StockChanged += (sender, args) =>
-            {
-
-            };
-
-            
             return View();
         }
     }

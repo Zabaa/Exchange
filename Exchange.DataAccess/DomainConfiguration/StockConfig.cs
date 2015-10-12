@@ -17,8 +17,8 @@ namespace Exchange.DataAccess.DomainConfiguration
             ToTable("Stock");
             HasKey(s => s.Id).Property(s => s.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(s => s.Symbol).HasColumnType("varchar").HasMaxLength(32).IsRequired();
-            Property(s => s.Price).HasColumnType("decimal(7,2)").IsRequired();
-            Property(s => s.DayOpen).HasColumnType("decimal(7,2)").IsOptional();
+            Property(s => s.Price).HasColumnType("numeric(12,2)").IsRequired();
+            Property(s => s.DayOpen).HasColumnType("numeric(12,2)").IsOptional();
             Property(s => s.LastChangeDate).HasColumnType("datetime").IsOptional();
         }
     }

@@ -144,7 +144,7 @@
                     $.each(stocks, function() {
                         var stock = formatStock(this);
                         $stockTableBody.append(rowTemplate.supplant(stock));
-                        //updateChart(stock);
+                        updateChart(stock);
                     });
                 });
             };
@@ -156,7 +156,7 @@
                 $stockTableBody.find('tr[data-symbol=' + stock.Symbol + ']')
                     .replaceWith($row);
 
-                //updateChart(stock);
+                updateChart(stock);
             }
 
             ticker.client.updateStocksPrice = function(stocks) {

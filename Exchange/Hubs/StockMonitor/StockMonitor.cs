@@ -2,17 +2,15 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Exchange.Domain;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
-using System.Threading;
 using Exchange.Service;
+using Exchange.Infrastructure;
+using Exchange.Infrastructure.Exceptions;
 using TableDependency.SqlClient;
-using System.Configuration;
 using TableDependency.EventArgs;
 using TableDependency.Enums;
-using Exchange.Infrastructure;
 
 namespace Exchange.Hubs.StockMonitor
 {
@@ -36,42 +34,30 @@ namespace Exchange.Hubs.StockMonitor
 
         private readonly StockService _stockService;
 
-        private static SqlTableDependency<Stock> _tableDependency;
+        private static SqlTableDependency<Stock> _stockDependency;
 
         private StockMonitor(IHubConnectionContext<dynamic> clients)
         {
             Clients = clients;
             _stockService = new StockService();
-            //_stockService.StockChanged += (sender, args) =>
-            //{
-            //    var stocks = _stockService.GetStocks();
-            //    _stocks.Clear();
-            //    foreach (var stock in stocks)
-            //    {
-            //        _stocks.TryAdd(stock.Symbol, stock);
-            //    }
-            //    BroadcastStocksPrice(_stocks.Values);
-            //};
 
-            string connectionString = ExchangeConfiguration.ConnectionString;
-
-            _tableDependency = new SqlTableDependency<Stock>(connectionString, "Stock");
-            _tableDependency.OnChanged += StockTableChanged;
-            _tableDependency.OnError += _tableDependency_OnError;
-            _tableDependency.Start();
+            _stockDependency = new SqlTableDependency<Stock>(ExchangeConfiguration.ConnectionString, "Stock");
+            _stockDependency.OnChanged += _stockDependency_OnChanged;
+            _stockDependency.OnError += _tableDependency_OnError;
+            _stockDependency.Start();
         }
 
-        private void _tableDependency_OnError(object sender, ErrorEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void StockTableChanged(object sender, RecordChangedEventArgs<Stock> e)
+        private void _stockDependency_OnChanged(object sender, RecordChangedEventArgs<Stock> e)
         {
             if (e.ChangeType != ChangeType.None)
             {
                 BroadcastStockPrice(e.Entity);
             }
+        }
+
+        private void _tableDependency_OnError(object sender, ErrorEventArgs e)
+        {
+            throw new TableDependencyException(e.Message, e.Error);
         }
 
         public static StockMonitor Instance
@@ -163,7 +149,7 @@ namespace Exchange.Hubs.StockMonitor
             {
                 if (disposing)
                 {
-                    _tableDependency.Stop();
+                    _stockDependency.Stop();
                 }
 
                 disposedValue = true;

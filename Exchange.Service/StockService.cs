@@ -10,12 +10,8 @@ using Exchange.Domain;
 
 namespace Exchange.Service
 {
-    public delegate void ResultChangedEventHandler(object sender, SqlNotificationEventArgs e);
-
     public class StockService
     {
-        public event ResultChangedEventHandler StockChanged;
-
         public IEnumerable<Stock> GetStocks()
         {
             using (var connnection = new SqlConnection(ConfigurationManager.ConnectionStrings["Exchange"].ConnectionString))
@@ -25,15 +21,6 @@ namespace Exchange.Service
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Notification = null;
-
-                    //SqlDependency sqlDependency = new SqlDependency(command);
-                    //sqlDependency.OnChange += new OnChangeEventHandler(
-                    //    (sender, args) =>
-                    //    {
-                    //        if (StockChanged != null && args.Type == SqlNotificationType.Change)
-                    //            StockChanged(sender, args);
-                    //    });
-
 
                     if(connnection.State == ConnectionState.Closed)
                         connnection.Open();
