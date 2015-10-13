@@ -22,13 +22,6 @@ namespace Exchange
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Database.SetInitializer<ApplicationDbContext>(new DbInitializer());
-
-            //SqlDependency.Start(ConfigurationManager.ConnectionStrings["Exchange"].ConnectionString);
-        }
-
-        protected void Application_End()
-        {
-            //SqlDependency.Stop(ConfigurationManager.ConnectionStrings["Exchange"].ConnectionString);
         }
     }
 }

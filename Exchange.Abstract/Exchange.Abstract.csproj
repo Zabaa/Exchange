@@ -42,6 +42,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IStockService.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Exchange.Domain\Exchange.Domain.csproj">
+      <Project>{4e480dd0-f62f-44d0-84fa-006a3ba3dbb1}</Project>
+      <Name>Exchange.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

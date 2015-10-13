@@ -12,13 +12,13 @@ namespace Exchange.DataAccess.Context
 {
     public class ExchangeContext : DbContext
     {
+        public DbSet<Stock> Stocks { get; set; }
+
         public ExchangeContext()
             : base("Exchange")
         {
             Database.SetInitializer(new CreateDatabaseIfNotExists<ExchangeContext>());
         }
-
-        public DbSet<Stock> Stocks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
