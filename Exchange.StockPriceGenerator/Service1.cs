@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.ServiceProcess;
 using System.Threading;
+using NLog;
 
 namespace Exchange.StockPriceGenerator
 {
@@ -20,13 +21,15 @@ namespace Exchange.StockPriceGenerator
 
         private readonly IStockService _stockService;
 
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         public Service1()
         {
             InitializeComponent();
 
             var kernel = new StandardKernel();
             kernel.Load(Assembly.GetExecutingAssembly());
-            _stockService = kernel.Get<IStockService>(); ;
+            _stockService = kernel.Get<IStockService>();
 
             eventLog = new EventLog();
             if (!EventLog.SourceExists("MySource"))
@@ -40,7 +43,7 @@ namespace Exchange.StockPriceGenerator
         protected override void OnStart(string[] args)
         {
             eventLog.WriteEntry("Start StockPriceGenerator service");
-            var timer = new Timer(SetRandomStockPrice, null, _timerInterval, _timerInterval);
+            var timer = new Timer(SetRandomStockPrice, null, _timerInterval, new TimeSpan(Timeout.Infinite));
         }
 
         protected override void OnStop()
@@ -52,20 +55,27 @@ namespace Exchange.StockPriceGenerator
         {
             lock (_lockObject)
             {
-                if (!_updatingStockPrice)
+                try
                 {
-                    _updatingStockPrice = true;
-                    //Todo: service.getstock -> tryupdateMethod -> service.update
-                    var stocks = _stockService.GetStocks();
-                    foreach (var stock in stocks)
+                    if (!_updatingStockPrice)
                     {
-                        if (TryUpdateStockPrice(stock))
+                        _updatingStockPrice = true;
+                        //Todo: service.getstock -> tryupdateMethod -> service.update
+                        var stocks = _stockService.GetStocks();
+                        foreach (var stock in stocks)
                         {
-                            _stockService.UpdateStockPrice(stock.Id, stock.Price);
+                            if (TryUpdateStockPrice(stock))
+                            {
+                                _stockService.UpdateStockPrice(stock.Id, stock.Price);
+                            }
                         }
-                    }
 
-                    _updatingStockPrice = false;
+                        _updatingStockPrice = false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    _logger.Error(e);
                 }
             }
         }

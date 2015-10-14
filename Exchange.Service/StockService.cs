@@ -56,7 +56,7 @@ namespace Exchange.Service
 
         public void UpdateStockPrice(int id, decimal newPrice)
         {
-            var stock = _exchangeContext.Stocks.SingleOrDefault(s => s.Id == id);
+            var stock = _exchangeContext.Stocks.FirstOrDefault(s => s.Id == id);
             if (stock != null)
             {
                 stock.Price = newPrice;
