@@ -14,7 +14,7 @@ namespace Exchange.StockPriceGenerator
     {
         private EventLog eventLog;
         private readonly object _lockObject = new object();
-        private readonly TimeSpan _timerInterval = TimeSpan.FromMilliseconds(5000);
+        private readonly TimeSpan _timerInterval = TimeSpan.FromSeconds(3);
         private readonly Random _updateOrNotRandom = new Random();
         private volatile bool _updatingStockPrice = false;
         private const double RangePercent = .002;
@@ -43,7 +43,12 @@ namespace Exchange.StockPriceGenerator
         protected override void OnStart(string[] args)
         {
             eventLog.WriteEntry("Start StockPriceGenerator service");
-            var timer = new Timer(SetRandomStockPrice, null, _timerInterval, new TimeSpan(Timeout.Infinite));
+            //var timer = new Timer(SetRandomStockPrice, null, _timerInterval, _timerInterval);
+
+            System.Timers.Timer timer = new System.Timers.Timer();
+            timer.Interval = 2000;
+            timer.Elapsed += new System.Timers.ElapsedEventHandler(this.SetRandomStockPrice);
+            timer.Start();
         }
 
         protected override void OnStop()
@@ -51,7 +56,7 @@ namespace Exchange.StockPriceGenerator
             eventLog.WriteEntry("Stop StockPriceGenerator service");
         }
 
-        private void SetRandomStockPrice(object state)
+        private void SetRandomStockPrice(object sender, System.Timers.ElapsedEventArgs args)
         {
             lock (_lockObject)
             {
