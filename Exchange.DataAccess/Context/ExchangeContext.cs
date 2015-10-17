@@ -7,12 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Exchange.DataAccess.DomainConfiguration;
 using Exchange.Domain;
+using Exchange.Domain.Auction;
 
 namespace Exchange.DataAccess.Context
 {
     public class ExchangeContext : DbContext
     {
         public DbSet<Stock> Stocks { get; set; }
+        public DbSet<Auction> Auctions { get; set; }
+        public DbSet<AuctionFile> AuctionFiles { get; set; }
+        public DbSet<AuctionHistory> AuctionHistories { get; set; }
 
         public ExchangeContext()
             : base("Exchange")

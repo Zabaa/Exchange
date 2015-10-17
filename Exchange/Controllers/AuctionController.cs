@@ -12,12 +12,6 @@ namespace Exchange.Controllers
         // GET: Auction
         public ActionResult Index()
         {
-            var dbContext = new ExchangeContext();
-            var stocks = dbContext.Stocks;
-            foreach (var stock in stocks)
-            {
-                System.Diagnostics.Debug.WriteLine("{0} - {1}", stock.Symbol, stock.Price);
-            }
             return View();
         }
 

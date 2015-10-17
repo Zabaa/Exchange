@@ -65,7 +65,6 @@ namespace Exchange.StockPriceGenerator
                     if (!_updatingStockPrice)
                     {
                         _updatingStockPrice = true;
-                        //Todo: service.getstock -> tryupdateMethod -> service.update
                         var stocks = _stockService.GetStocks();
                         foreach (var stock in stocks)
                         {
