@@ -43,7 +43,6 @@ namespace Exchange.StockPriceGenerator
         protected override void OnStart(string[] args)
         {
             eventLog.WriteEntry("Start StockPriceGenerator service");
-            //var timer = new Timer(SetRandomStockPrice, null, _timerInterval, _timerInterval);
 
             System.Timers.Timer timer = new System.Timers.Timer();
             timer.Interval = 2000;

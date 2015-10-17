@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Exchange.App_Start;
 using Exchange.Infrastructure;
 using Exchange.Models;
 
@@ -21,6 +22,7 @@ namespace Exchange
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            MapsterConfig.Config();
             Database.SetInitializer<ApplicationDbContext>(new DbInitializer());
         }
     }

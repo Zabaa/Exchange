@@ -64,6 +64,7 @@ namespace Exchange.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IStockService>().To<StockService>();
+            kernel.Bind<IAuctionService>().To<AuctionService>();
         }        
     }
 }

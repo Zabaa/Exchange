@@ -12,6 +12,8 @@ namespace Exchange.Controllers
         // GET: Auction
         public ActionResult Index()
         {
+
+
             return View();
         }
 
