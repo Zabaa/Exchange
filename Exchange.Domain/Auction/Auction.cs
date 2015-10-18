@@ -17,6 +17,8 @@ namespace Exchange.Domain.Auction
         public DateTime LastPriceChangeDate { get; set; }
         public int Status { get; set; }
 
+        public string UserId { get; set; }
+
         public virtual ICollection<AuctionFile> AuctionFiles { get; set; }
         public virtual ICollection<AuctionHistory> AuctionHistories { get; set; }
     }

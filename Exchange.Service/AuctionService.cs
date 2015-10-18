@@ -18,9 +18,14 @@ namespace Exchange.Service
             _exchangeContext = new ExchangeContext();
         }
 
-        public IEnumerable<Auction> GetAuctions()
+        public IEnumerable<Auction> GetAuctions(string userId)
         {
-            return _exchangeContext.Auctions;
+            return _exchangeContext.Auctions.Where(a => a.UserId == userId);
+        }
+
+        public Auction GetAuction(int id)
+        {
+            return _exchangeContext.Auctions.SingleOrDefault(a => a.Id == id);
         }
 
         public void CreateAuction(Auction auction)

@@ -9,7 +9,8 @@ namespace Exchange.Abstract.Services
 {
     public interface IAuctionService
     {
-        IEnumerable<Auction> GetAuctions();
+        IEnumerable<Auction> GetAuctions(string userId);
+        Auction GetAuction(int id);
         void CreateAuction(Auction auction);
         void UpdateAuction(Auction auction);
         void DeleteAuction(int id);

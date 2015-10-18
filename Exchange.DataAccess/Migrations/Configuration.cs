@@ -1,6 +1,5 @@
 namespace Exchange.DataAccess.Migrations
 {
-    using Domain;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -27,14 +26,6 @@ namespace Exchange.DataAccess.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
-            context.Stocks.AddOrUpdate(
-                new Stock { Symbol = "Firma1", Price = 663.31m, LastChangeDate = DateTime.Now },
-                new Stock { Symbol = "Firma2", Price = 665.18m, LastChangeDate = DateTime.Now },
-                new Stock { Symbol = "Firma3", Price = 664.30m, LastChangeDate = DateTime.Now },
-                new Stock { Symbol = "Firma4", Price = 663.98m, LastChangeDate = DateTime.Now },
-                new Stock { Symbol = "Firma5", Price = 667.57m, LastChangeDate = DateTime.Now }
-                );
         }
     }
 }

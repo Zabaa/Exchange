@@ -48,13 +48,9 @@
   <ItemGroup>
     <Compile Include="Context\ExchangeContext.cs" />
     <Compile Include="DomainConfiguration\StockConfig.cs" />
-    <Compile Include="Migrations\201510061839002_InitialCreate.cs" />
-    <Compile Include="Migrations\201510061839002_InitialCreate.Designer.cs">
-      <DependentUpon>201510061839002_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510171006170_Auction.cs" />
-    <Compile Include="Migrations\201510171006170_Auction.Designer.cs">
-      <DependentUpon>201510171006170_Auction.cs</DependentUpon>
+    <Compile Include="Migrations\201510171539202_InitialMigration.cs" />
+    <Compile Include="Migrations\201510171539202_InitialMigration.Designer.cs">
+      <DependentUpon>201510171539202_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,11 +69,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201510061839002_InitialCreate.resx">
-      <DependentUpon>201510061839002_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510171006170_Auction.resx">
-      <DependentUpon>201510171006170_Auction.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510171539202_InitialMigration.resx">
+      <DependentUpon>201510171539202_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
