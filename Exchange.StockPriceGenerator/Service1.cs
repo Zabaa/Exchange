@@ -21,7 +21,7 @@ namespace Exchange.StockPriceGenerator
 
         private readonly IStockService _stockService;
 
-        private static Logger _logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public Service1()
         {
@@ -72,13 +72,12 @@ namespace Exchange.StockPriceGenerator
                                 _stockService.UpdateStockPrice(stock.Id, stock.Price);
                             }
                         }
-
                         _updatingStockPrice = false;
                     }
                 }
                 catch (Exception e)
                 {
-                    _logger.Error(e);
+                    Logger.Error(e);
                 }
             }
         }

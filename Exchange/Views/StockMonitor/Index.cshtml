@@ -101,28 +101,11 @@
                     var d1 = new Date(stock.LastChangeDate);
                     var dateString1 = d1.getFullYear().toString() + "-" + d1.getMonth().toString() + "-" + d1.getDate().toString() + " " + d1.getHours().toString() + ":" + d1.getMinutes().toString() + ":" + d1.getSeconds().toString();
                     chartStocks[stock.Symbol].time = [dateString1];
-
-                    //for (key in chartStocks) {
-                    //    if (chartStocks.hasOwnProperty(key) && key !== stock.Symbol) {
-                    //        lastValue = chartStocks[key].values[chartStocks[key].values.length - 1];
-                    //        chartStocks[key].values.push(lastValue);
-                    //        chartStocks[key].time.push(dateString1);
-                    //    }
-                    //}
-
                 } else {
                     chartStocks[stock.Symbol].values.push(stock.Price);
                     var d = new Date(stock.LastChangeDate);
                     var dateString = d.getFullYear().toString() + "-" + d.getMonth().toString() + "-" + d.getDate().toString() + " " + d.getHours().toString() + ":" + d.getMinutes().toString() + ":" + d.getSeconds().toString();
                     chartStocks[stock.Symbol].time.push(dateString);
-
-                    //for (key in chartStocks) {
-                    //    if (chartStocks.hasOwnProperty(key) && key !== stock.Symbol) {
-                    //        lastValue = chartStocks[key].values[chartStocks[key].values.length - 1];
-                    //        chartStocks[key].values.push(lastValue);
-                    //        chartStocks[key].time.push(dateString);
-                    //    }
-                    //}
 
                     if (chartStocks[stock.Symbol].values.length > 10) {
                         chartStocks[stock.Symbol].values.shift();

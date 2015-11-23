@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\ExchangeContext.cs" />
+    <Compile Include="DomainConfiguration\AuctionConfig.cs" />
     <Compile Include="DomainConfiguration\StockConfig.cs" />
     <Compile Include="Migrations\201510171539202_InitialMigration.cs" />
     <Compile Include="Migrations\201510171539202_InitialMigration.Designer.cs">

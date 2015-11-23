@@ -21,15 +21,30 @@ namespace Exchange.App_Start
 
         private static void ConfigureModelMappings()
         {
-            TypeAdapterConfig<Domain.Auction.Auction, AuctionViewModel>.NewConfig()
-                .Map(dest => dest.Status, src => (AuctionStatus) src.Status);
+            #region Auction
 
-            TypeAdapterConfig<AuctionViewModel, Domain.Auction.Auction>.NewConfig()
+            TypeAdapterConfig<Auction, AuctionGridViewModel>.NewConfig()
+                .Map(dest => dest.Status, src => (AuctionStatus)src.Status);
+
+            TypeAdapterConfig<AuctionGridViewModel, Auction>.NewConfig()
                 .Ignore(dest => dest.AuctionHistories)
                 .Ignore(dest => dest.AuctionFiles)
                 .Ignore(dest => dest.UserId)
                 .Ignore(dest => dest.LastPriceChangeDate)
-                .Map(dest => dest.Status, src => (int) src.Status);
+                .Map(dest => dest.Status, src => (int)src.Status);
+
+            TypeAdapterConfig<Auction, AuctionViewModel>.NewConfig()
+                .Map(dest => dest.Status, src => (AuctionStatus)src.Status);
+
+            TypeAdapterConfig<AuctionViewModel, Auction>.NewConfig()
+                .Ignore(dest => dest.AuctionHistories)
+                .Ignore(dest => dest.AuctionFiles)
+                .Ignore(dest => dest.UserId)
+                .Ignore(dest => dest.LastPriceChangeDate)
+                .Map(dest => dest.Status, src => (int)src.Status);
+
+
+            #endregion
         }
     }
 }

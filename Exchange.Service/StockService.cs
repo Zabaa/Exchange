@@ -23,30 +23,7 @@ namespace Exchange.Service
 
         public IEnumerable<Stock> GetStocks()
         {
-            using (var connnection = new SqlConnection(ConfigurationManager.ConnectionStrings["Exchange"].ConnectionString))
-            {
-                connnection.Open();
-                using (var command = new SqlCommand("sp_GetStocks", connnection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Notification = null;
-
-                    if(connnection.State == ConnectionState.Closed)
-                        connnection.Open();
-
-                    using (var reader = command.ExecuteReader())
-                    {
-                        return reader.Cast<IDataRecord>().Select(x => new Stock
-                        {
-                            Id = x.GetInt32(0),
-                            Symbol = x.GetString(1),
-                            Price = x.GetDecimal(2),
-                            DayOpen = x.GetDecimal(3),
-                            LastChangeDate = x.GetDateTime(4)
-                        }).ToList();
-                    }
-                }
-            }
+            return _exchangeContext.Stocks;
         }
 
         public Stock GetStock(int id)

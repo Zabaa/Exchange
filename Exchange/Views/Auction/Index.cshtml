@@ -4,6 +4,7 @@
 }
 
 <h2>Moje aukcje</h2>
+@Html.ActionLink("Dodaj", "Add", "Auction", new { @class = "btn btn-default", id="btn-add" })
 
 <div class="modal fade" id="dialogDiv" tabindex="-1" role="dialog">
     <div class="modal-dialog" id="dialogContent" role="document">
@@ -47,6 +48,16 @@
         $(document).ready(function() {
             $('.btn-details').on('click', function() {
                 $('#dialogContent').load(this.href, function() {
+                    $('#dialogDiv').modal({
+                        backdrop: 'static',
+                        keyboard: true
+                    }, 'show');
+                });
+                return false;
+            });
+
+            $('#btn-add').on('click', function () {
+                $('#dialogContent').load(this.href, function () {
                     $('#dialogDiv').modal({
                         backdrop: 'static',
                         keyboard: true

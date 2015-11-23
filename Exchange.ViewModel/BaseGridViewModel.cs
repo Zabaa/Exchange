@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Exchange.ViewModel
 {
-    public class BaseViewModel
+    public class BaseGridViewModel
     {
         public int Id { get; set; }
     }

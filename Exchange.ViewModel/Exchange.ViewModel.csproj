@@ -40,8 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auction\AuctionGridViewModel.cs" />
+    <Compile Include="Auction\AuctionPaginViewModel.cs" />
     <Compile Include="Auction\AuctionViewModel.cs" />
-    <Compile Include="BaseViewModel.cs" />
+    <Compile Include="BaseGridViewModel.cs" />
+    <Compile Include="BasePaginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
