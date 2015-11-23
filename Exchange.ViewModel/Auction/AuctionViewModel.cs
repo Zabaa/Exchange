@@ -25,9 +25,6 @@ namespace Exchange.ViewModel.Auction
         [DisplayName("Cena początkowa")]
         public decimal OpenPrice { get; set; }
 
-        [DisplayName("Cena")]
-        public decimal Price { get; set; }
-
         [Required]
         [DisplayName("Data rozpoczęcia")]
         public DateTime StartDate { get; set; }
@@ -36,6 +33,7 @@ namespace Exchange.ViewModel.Auction
         [DisplayName("Data zakończenia")]
         public DateTime PredictedEndDate { get; set; }
 
+        [Required]
         [DisplayName("Status")]
         public AuctionStatus Status { get; set; }
     }

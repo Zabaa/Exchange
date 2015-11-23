@@ -41,6 +41,7 @@ namespace Exchange.App_Start
                 .Ignore(dest => dest.AuctionFiles)
                 .Ignore(dest => dest.UserId)
                 .Ignore(dest => dest.LastPriceChangeDate)
+                .Ignore(dest => dest.Price)
                 .Map(dest => dest.Status, src => (int)src.Status);
 
 
