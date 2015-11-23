@@ -26,7 +26,7 @@ namespace Exchange.Controllers
         public ActionResult Index()
         {
             var auctions = _auctionService.GetAuctions(User.Identity.GetUserId()).ToList();
-            var viewModel = TypeAdapter.Adapt<IEnumerable<Auction>, IEnumerable<AuctionViewModel>>(auctions);
+            var viewModel = TypeAdapter.Adapt<IEnumerable<Auction>, IEnumerable<AuctionGridViewModel>>(auctions);
 
             return View(viewModel);
         }

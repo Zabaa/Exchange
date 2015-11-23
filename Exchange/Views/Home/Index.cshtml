@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
 <div class="jumbotron">
     <h1>System obsługi transakcji giełdowych</h1>
     <p class="lead">
@@ -10,14 +9,13 @@
     </p>
     <p><a href="http://asp.net" class="btn btn-primary btn-lg">Dowiedz się więcej &raquo;</a></p>
 </div>
-
 <div class="row">
     <div class="col-md-4">
         <h2>Notowania giełdowe</h2>
         <p>
             Aktualny przegląd notowań giełdowych.
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Przejdź &raquo;</a></p>
+        <p>@Html.ActionLink("Przejdź »", "Index", "StockMonitor", new { @class = "btn btn-default", id = "btn-add" })</p>
     </div>
     <div class="col-md-4">
         <h2>Transakcje giełdowe</h2>
@@ -27,6 +25,6 @@
     <div class="col-md-4">
         <h2>Aukcje</h2>
         <p>Aktualna lista najnowszych aukcji z możliwością wystawienia własnych produktów.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Przejdź &raquo;</a></p>
+        <p>@Html.ActionLink("Przejdź »", "Index", "Auction", new { @class = "btn btn-default", id = "btn-add" })</p>
     </div>
 </div>
