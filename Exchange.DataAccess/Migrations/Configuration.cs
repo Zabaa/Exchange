@@ -9,7 +9,7 @@ namespace Exchange.DataAccess.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Exchange.DataAccess.Context.ExchangeContext context)

@@ -35,7 +35,8 @@
                 <td>@auction.StartDate</td>
                 <td>@auction.Status.GetDescription()</td>
                 <td>
-                    @Html.ActionLink("Szczegóły", "Details", "Auction", new {id = auction.Id}, new {@class = "btn-details"})
+                    @Html.ActionLink("Szczegóły", "Details", "Auction", new { id = auction.Id }, new { @class = "btn btn-default btn-details" })
+                    @Html.ActionLink("Edycja", "Update", "Auction",new { id = auction.Id }, new { @class = "btn btn-default btn-update" })
                 </td>
             </tr>
         }
@@ -48,41 +49,28 @@
     <script>
         $(document).ready(function() {
             $('.btn-details').on('click', function() {
-                $('#dialogContent').load(this.href, function() {
-                    $('#dialogDiv').modal({
-                        backdrop: 'static',
-                        keyboard: true
-                    }, 'show');
-                });
+                loadPartialView(this.href);
                 return false;
             });
 
             $('#btn-add').on('click', function () {
-                $('#dialogContent').load(this.href, function () {
-                    $('#dialogDiv').modal({
-                        backdrop: 'static',
-                        keyboard: true
-                    }, 'show');
-                });
+                loadPartialView(this.href);
                 return false;
             });
 
-            //$('btn-details').on('click', function() {
-            //    e.preventDefault();
-            //    var url = $(this).attr('href');
-            //    $.ajax({
-            //        url: url,
-            //        type: 'GET',
-            //        success: function(html) {
-            //            $('.modal-dialog #auctionModal').html(html);
-            //            $('#auctionModal').modal({
-            //                backdrop: 'static',
-            //                keyboard: true
-            //            }, 'show');
-
-            //        }
-            //    });
-            //});
+            $('.btn-update').on('click', function () {
+                loadPartialView(this.href);
+                return false;
+            });
         });
+
+        function loadPartialView(linkHref) {
+            $('#dialogContent').load(linkHref, function () {
+                $('#dialogDiv').modal({
+                    backdrop: 'static',
+                    keyboard: true
+                }, 'show');
+            });
+        }
     </script>
 }

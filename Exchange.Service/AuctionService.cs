@@ -36,14 +36,14 @@ namespace Exchange.Service
 
         public void UpdateAuction(Auction auction)
         {
-            var auctionU = _exchangeContext.Auctions.SingleOrDefault(a => a.Id == auction.Id);
-            if (auctionU != null)
+            var auctionToUpdate = _exchangeContext.Auctions.SingleOrDefault(a => a.Id == auction.Id);
+            if (auctionToUpdate != null)
             {
-                auctionU.Name = auction.Name;
-                auctionU.Description = auction.Description;
-                auctionU.OpenPrice = auction.OpenPrice;
-                auctionU.StartDate = auction.StartDate;
-                auctionU.Status = auction.Status;
+                auctionToUpdate.Name = auction.Name;
+                auctionToUpdate.Description = auction.Description;
+                auctionToUpdate.OpenPrice = auction.OpenPrice;
+                auctionToUpdate.StartDate = auction.StartDate;
+                auctionToUpdate.Status = auction.Status;
                 _exchangeContext.SaveChanges();
             }
         }

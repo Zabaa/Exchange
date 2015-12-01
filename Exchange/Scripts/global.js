@@ -8,3 +8,13 @@
         }
     });
 });
+
+function initializeDatePicker() {
+    $('.datepicker').datepicker({
+        format: "yyyy-mm-dd",
+        startDate: "this",
+        clearBtn: true,
+        language: "pl",
+        autoclose: true
+    });
+};

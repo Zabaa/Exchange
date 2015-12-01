@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Dodaj aukcje";
+    IEnumerable<SelectListItem> auctionStauses = (IEnumerable<SelectListItem>)ViewData["AuctionStatuses"];
 }
 
 <div class="modal-content">
@@ -50,7 +51,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Status, new { @class = "col-sm-2 control-label" })
                 <div class="col-sm-10">
-                    @Html.EnumDropDownListFor(model => model.Status, new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.Status, auctionStauses, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Status)
                 </div>
             </div>
@@ -93,14 +94,7 @@
             return false;
         });
 
-        $('.datepicker').datepicker({
-            format: "yyyy-mm-dd",
-            startDate: "this",
-            clearBtn: true,
-            language: "pl",
-            autoclose: true
-        });
-
+        initializeDatePicker();
     });
 
 </script>

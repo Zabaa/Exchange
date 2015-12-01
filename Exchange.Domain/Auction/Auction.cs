@@ -11,10 +11,10 @@ namespace Exchange.Domain.Auction
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal OpenPrice { get; set; }
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime PredictedEndDate { get; set; }
-        public DateTime LastPriceChangeDate { get; set; }
+        public DateTime? LastPriceChangeDate { get; set; }
         public int Status { get; set; }
 
         public string UserId { get; set; }
