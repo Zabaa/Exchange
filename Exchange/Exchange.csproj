@@ -376,6 +376,8 @@
     <Content Include="Views\Auction\_Details.cshtml" />
     <Content Include="Views\Auction\_Add.cshtml" />
     <Content Include="Views\Auction\_Update.cshtml" />
+    <Content Include="Views\Auction\StartedAuctions.cshtml" />
+    <Content Include="Views\Auction\AuctionProgress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

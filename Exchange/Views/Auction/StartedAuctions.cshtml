@@ -4,11 +4,7 @@
     ViewBag.Title = "Aukcje";
 }
 
-<h2>Moje aukcje</h2>
-@if (User.Identity.IsAuthenticated)
-{
-   @Html.ActionLink("Dodaj", "Add", "Auction", new { @class = "btn btn-default", id = "btn-add" })
-}
+<h2>Rozpoczęte aukcje</h2>
 
 <div class="modal fade" id="dialogDiv" tabindex="-1" role="dialog">
     <div class="modal-dialog" id="dialogContent" role="document">
@@ -19,30 +15,30 @@
 <div id="auctionTable" class="row">
     <table class="table table-striped table-bordered">
         <thead>
-        <tr>
-            <th>Nazwa</th>
-            <th>Opis</th>
-            <th>Cena otwarcia</th>
-            <th>Data rozpoczęcia</th>
-            <th>Status</th>
-            <th>Operacje</th>
-        </tr>
+            <tr>
+                <th>Nazwa</th>
+                <th>Opis</th>
+                <th>Cena otwarcia</th>
+                <th>Aktualna cena</th>
+                <th>Data rozpoczęcia</th>
+                <th>Operacje</th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var auction in Model)
-        {
-            <tr>
-                <td>@auction.Name</td>
-                <td>@auction.Description</td>
-                <td>@auction.OpenPrice</td>
-                <td>@auction.StartDate</td>
-                <td>@auction.Status.GetDescription()</td>
-                <td>
-                    @Html.ActionLink("Szczegóły", "Details", "Auction", new { id = auction.Id }, new { @class = "btn btn-default btn-details" })
-                    @Html.ActionLink("Edycja", "Update", "Auction",new { id = auction.Id }, new { @class = "btn btn-default btn-update" })
-                </td>
-            </tr>
-        }
+            @foreach (var auction in Model)
+            {
+                <tr>
+                    <td>@auction.Name</td>
+                    <td>@auction.Description</td>
+                    <td>@auction.OpenPrice</td>
+                    <td>@auction.Price</td>
+                    <td>@auction.StartDate</td>
+                    <td>
+                        @Html.ActionLink("Szczegóły", "Details", "Auction", new { id = auction.Id }, new { @class = "btn btn-default btn-details" })
+                        @Html.ActionLink("Licytuj", "AuctionProgress", "Auction", new { id = auction.Id }, new { @class = "btn btn-default" })
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>

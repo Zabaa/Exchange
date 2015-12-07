@@ -26,15 +26,26 @@ namespace Exchange.Controllers
 
         public ActionResult Index()
         {
-            var auctions = _auctionService.GetAuctions(User.Identity.GetUserId()).ToList();
+            IEnumerable<Auction> auctions = _auctionService.GetAuctions(User.Identity.GetUserId()).ToList();
             var viewModel = TypeAdapter.Adapt<IEnumerable<Auction>, IEnumerable<AuctionGridViewModel>>(auctions);
 
             return View(viewModel);
         }
 
-        public ActionResult Auction()
+        public ActionResult StartedAuctions()
         {
-            return View();
+            IEnumerable<Auction> auctions = _auctionService.GetStartedAuctions();
+            var viewModel = TypeAdapter.Adapt<IEnumerable<Auction>, IEnumerable<AuctionGridViewModel>>(auctions);
+
+            return View(viewModel);
+        }
+
+        public ActionResult AuctionProgress(int id)
+        {
+            var auction = _auctionService.GetAuction(id);
+            var viewModel = TypeAdapter.Adapt<Auction, AuctionViewModel>(auction);
+
+            return View(viewModel);
         }
 
         [HttpGet]

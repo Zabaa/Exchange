@@ -14,5 +14,6 @@ namespace Exchange.Abstract.Services
         void CreateAuction(Auction auction);
         void UpdateAuction(Auction auction);
         void DeleteAuction(int id);
+        IEnumerable<Auction> GetStartedAuctions();
     }
 }

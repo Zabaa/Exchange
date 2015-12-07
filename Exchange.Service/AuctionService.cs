@@ -56,5 +56,10 @@ namespace Exchange.Service
                 _exchangeContext.Auctions.Remove(auctionD);
             }
         }
+
+        public IEnumerable<Auction> GetStartedAuctions()
+        {
+            return _exchangeContext.Auctions.Where(a => a.Status == (int) AuctionStatus.Started);   
+        }
     }
 }
