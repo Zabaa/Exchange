@@ -36,5 +36,8 @@ namespace Exchange.ViewModel.Auction
         [Required]
         [DisplayName("Status")]
         public AuctionStatus Status { get; set; }
+
+        [DisplayName("Nazwa użytkownika")]
+        public string UserName { get; set; }
     }
 }

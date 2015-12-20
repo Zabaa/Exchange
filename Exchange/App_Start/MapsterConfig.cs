@@ -34,6 +34,7 @@ namespace Exchange.App_Start
                 .Map(dest => dest.Status, src => (int)src.Status);
 
             TypeAdapterConfig<Auction, AuctionViewModel>.NewConfig()
+                .Ignore(dest => dest.UserName)
                 .Map(dest => dest.Status, src => (AuctionStatus)src.Status);
 
             TypeAdapterConfig<AuctionViewModel, Auction>.NewConfig()

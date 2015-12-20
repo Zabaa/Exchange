@@ -37,6 +37,8 @@ namespace Exchange
             bundles.Add(new ScriptBundle("~/bundles/c3").Include(
                 "~/Scripts/d3.js",
                 "~/Scripts/c3.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/knockout").Include("~/Scripts/knockout-3.4.0.debug.js"));
         }
     }
 }

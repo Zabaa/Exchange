@@ -14,6 +14,7 @@ using NLog;
 
 namespace Exchange.Controllers
 {
+    [Authorize]
     public class AuctionController : Controller
     {
         private readonly IAuctionService _auctionService;
@@ -32,6 +33,7 @@ namespace Exchange.Controllers
             return View(viewModel);
         }
 
+        [AllowAnonymous]
         public ActionResult StartedAuctions()
         {
             IEnumerable<Auction> auctions = _auctionService.GetStartedAuctions();
@@ -44,11 +46,13 @@ namespace Exchange.Controllers
         {
             var auction = _auctionService.GetAuction(id);
             var viewModel = TypeAdapter.Adapt<Auction, AuctionViewModel>(auction);
+            viewModel.UserName = User.Identity.Name;
 
             return View(viewModel);
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Details(int id)
         {
             var auction = _auctionService.GetAuction(id);

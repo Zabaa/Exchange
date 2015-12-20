@@ -11,7 +11,7 @@ namespace Exchange.Domain.Auction
         public int AuctionId { get; set; }
         public virtual Auction Auction { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public DateTime Date { get; set; }
         public decimal Price { get; set; }
     }

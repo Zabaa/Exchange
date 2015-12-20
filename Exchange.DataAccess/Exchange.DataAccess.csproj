@@ -53,6 +53,10 @@
     <Compile Include="Migrations\201512011939502_Initial.Designer.cs">
       <DependentUpon>201512011939502_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512141953334_ChangeUserIdType.cs" />
+    <Compile Include="Migrations\201512141953334_ChangeUserIdType.Designer.cs">
+      <DependentUpon>201512141953334_ChangeUserIdType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -72,6 +76,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201512011939502_Initial.resx">
       <DependentUpon>201512011939502_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512141953334_ChangeUserIdType.resx">
+      <DependentUpon>201512141953334_ChangeUserIdType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

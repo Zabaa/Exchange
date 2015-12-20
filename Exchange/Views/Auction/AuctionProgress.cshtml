@@ -15,6 +15,8 @@
         <dl class="dl-horizontal">
             <dt>Numer aukcji</dt>
             <dd>@Model.Id</dd>
+            <dt>Nazwa użytkownika</dt>
+            <dd>@Model.UserName</dd>
             <dt>Nazwa produktu</dt>
             <dd>@Model.Name</dd>
             <dt>Cena początkowa</dt>
@@ -30,3 +32,50 @@
         </dl>
     </div>
 </div>
+
+<div class="row" style="margin-bottom: 25px;">
+    <form class="form-inline">
+        <label class="col-xs-2">Zaproponuj kwote</label>
+        <div class="form-group col-xs-4">
+            <div class="input-group">
+                <div class="input-group-addon">PLN</div>
+                <input type="text" class="form-control" id="exampleInputAmount" placeholder="Kwota">
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <button type="submit" class="btn btn-primary">Licytuj</button>
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <div class="page-header">
+        <h2 id="timeline">Przebieg aukcji</h2>
+    </div>
+    <ul class="timeline" data-bind="foreach: auctionHistory">
+        <li data-bind="css: { 'timeline-inverted': timelineInverted}">
+            <div class="timeline-badge">
+                <i class="glyphicon glyphicon-thumbs-up"></i>
+            </div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <h4 class="timeline-title" data-bind="text: userName"></h4>
+                    <p>
+                        <small class="text-muted" data-bind="text: date">
+                            <i class="glyphicon glyphicon-time"></i>
+                        </small>
+                    </p>
+                </div>
+                <div class="timeline-body">
+                    <p>Użytkownik zaproponował cene <strong data-bind="text: price"></strong> PLN.</p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/Scripts/KnockoutModels/AuctionVM.js")
+}
