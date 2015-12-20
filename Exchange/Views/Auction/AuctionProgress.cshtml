@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="col-xs-4">
-            <button type="submit" class="btn btn-primary">Licytuj</button>
+            <button data-bind="click: addHistory" type="submit" class="btn btn-primary">Licytuj</button>
         </div>
     </form>
 </div>
@@ -78,4 +78,12 @@
 {
     @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/Scripts/KnockoutModels/AuctionVM.js")
+
+    <script>
+        @*@{
+            var jsonModel = @Html.Raw(HttpUtility.JavaScriptStringEncode(Newtonsoft.Json.JsonConvert.SerializeObject(Model)));
+        }*@
+        @*var testViewModel = ko.mapping.fromJSON('@jsonModel');*@
+        var test2ViewModel = ko.mapping.fromJS(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model)));
+    </script>
 }
