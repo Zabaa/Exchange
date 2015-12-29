@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="Auction\Auction.cs" />
     <Compile Include="Auction\AuctionFile.cs" />
-    <Compile Include="Auction\AuctionHistory.cs" />
+    <Compile Include="Auction\AuctionOffer.cs" />
     <Compile Include="Auction\AuctionStatus.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

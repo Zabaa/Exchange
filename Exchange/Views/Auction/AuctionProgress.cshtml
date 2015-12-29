@@ -39,11 +39,11 @@
         <div class="form-group col-xs-4">
             <div class="input-group">
                 <div class="input-group-addon">PLN</div>
-                <input type="text" class="form-control" id="exampleInputAmount" placeholder="Kwota">
+                <input type="text" data-bind="value: PriceToOffer" class="form-control" id="exampleInputAmount" placeholder="Kwota">
             </div>
         </div>
         <div class="col-xs-4">
-            <button data-bind="click: addHistory" type="submit" class="btn btn-primary">Licytuj</button>
+            <button data-bind="click: AddOffer" type="submit" class="btn btn-primary">Licytuj</button>
         </div>
     </form>
 </div>
@@ -52,22 +52,22 @@
     <div class="page-header">
         <h2 id="timeline">Przebieg aukcji</h2>
     </div>
-    <ul class="timeline" data-bind="foreach: auctionHistory">
-        <li data-bind="css: { 'timeline-inverted': timelineInverted}">
+    <ul class="timeline" data-bind="foreach: AuctionOffers">
+        <li data-bind="css: { 'timeline-inverted': TimelineInverted}">
             <div class="timeline-badge">
                 <i class="glyphicon glyphicon-thumbs-up"></i>
             </div>
             <div class="timeline-panel">
                 <div class="timeline-heading">
-                    <h4 class="timeline-title" data-bind="text: userName"></h4>
+                    <h4 class="timeline-title" data-bind="text: UserName"></h4>
                     <p>
-                        <small class="text-muted" data-bind="text: date">
+                        <small class="text-muted" data-bind="text: Date">
                             <i class="glyphicon glyphicon-time"></i>
                         </small>
                     </p>
                 </div>
                 <div class="timeline-body">
-                    <p>Użytkownik zaproponował cene <strong data-bind="text: price"></strong> PLN.</p>
+                    <p>Użytkownik zaproponował cene <strong data-bind="text: Price"></strong> PLN.</p>
                 </div>
             </div>
         </li>
@@ -80,10 +80,8 @@
     @Scripts.Render("~/Scripts/KnockoutModels/AuctionVM.js")
 
     <script>
-        @*@{
-            var jsonModel = @Html.Raw(HttpUtility.JavaScriptStringEncode(Newtonsoft.Json.JsonConvert.SerializeObject(Model)));
-        }*@
-        @*var testViewModel = ko.mapping.fromJSON('@jsonModel');*@
-        var test2ViewModel = ko.mapping.fromJS(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model)));
+            var model = '@Html.Raw(HttpUtility.JavaScriptStringEncode(Newtonsoft.Json.JsonConvert.SerializeObject(Model)))';
+            var viewModel = new AuctionViewModel(model);
+            ko.applyBindings(viewModel);
     </script>
 }

@@ -8,6 +8,7 @@ using Exchange.Abstract.Services;
 using Exchange.Domain.Auction;
 using Exchange.Infrastructure.Extensions;
 using Exchange.ViewModel.Auction;
+using Exchange.ViewModel.AuctionOffer;
 using Mapster;
 using Microsoft.AspNet.Identity;
 using NLog;
@@ -18,11 +19,13 @@ namespace Exchange.Controllers
     public class AuctionController : Controller
     {
         private readonly IAuctionService _auctionService;
+        private readonly IAuctionOfferService _auctionOfferService;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        public AuctionController(IAuctionService auctionService)
+        public AuctionController(IAuctionService auctionService, IAuctionOfferService auctionOfferService)
         {
             _auctionService = auctionService;
+            _auctionOfferService = auctionOfferService;
         }
 
         public ActionResult Index()
@@ -81,7 +84,7 @@ namespace Exchange.Controllers
 
             try
             {
-                _auctionService.CreateAuction(auction);
+                _auctionService.AddAuction(auction);
                 return Json(new { success = true });
             }
             catch (Exception e)
@@ -113,6 +116,26 @@ namespace Exchange.Controllers
             try
             {
                 _auctionService.UpdateAuction(auction);
+                return Json(new { success = true });
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e);
+                return Json(new { success = false });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult AddOffer(AuctionOfferViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return Json(new { success = false });
+
+            var auctionOffer = TypeAdapter.Adapt<AuctionOfferViewModel, AuctionOffer>(viewModel);
+            
+            try
+            {
+                _auctionOfferService.AddAuctionOffer(auctionOffer);
                 return Json(new { success = true });
             }
             catch (Exception e)

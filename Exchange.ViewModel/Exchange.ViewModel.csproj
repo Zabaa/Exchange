@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuctionOffer\AuctionOfferViewModel.cs" />
     <Compile Include="Auction\AuctionGridViewModel.cs" />
     <Compile Include="Auction\AuctionPaginViewModel.cs" />
     <Compile Include="Auction\AuctionViewModel.cs" />

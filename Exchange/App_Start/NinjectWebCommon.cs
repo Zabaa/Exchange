@@ -65,6 +65,7 @@ namespace Exchange.App_Start
         {
             kernel.Bind<IStockService>().To<StockService>();
             kernel.Bind<IAuctionService>().To<AuctionService>();
+            kernel.Bind<IAuctionOfferService>().To<AuctionOfferService>();
         }        
     }
 }

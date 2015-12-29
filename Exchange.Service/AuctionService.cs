@@ -28,7 +28,7 @@ namespace Exchange.Service
             return _exchangeContext.Auctions.SingleOrDefault(a => a.Id == id);
         }
 
-        public void CreateAuction(Auction auction)
+        public void AddAuction(Auction auction)
         {
             _exchangeContext.Auctions.Add(auction);
             _exchangeContext.SaveChanges();

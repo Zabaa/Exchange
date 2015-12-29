@@ -20,6 +20,6 @@ namespace Exchange.Domain.Auction
         public string UserId { get; set; }
 
         public virtual ICollection<AuctionFile> AuctionFiles { get; set; }
-        public virtual ICollection<AuctionHistory> AuctionHistories { get; set; }
+        public virtual ICollection<AuctionOffer> AuctionOffers { get; set; }
     }
 }

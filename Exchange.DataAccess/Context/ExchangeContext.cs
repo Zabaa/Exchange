@@ -11,7 +11,7 @@ namespace Exchange.DataAccess.Context
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<Auction> Auctions { get; set; }
         public DbSet<AuctionFile> AuctionFiles { get; set; }
-        public DbSet<AuctionHistory> AuctionHistories { get; set; }
+        public DbSet<AuctionOffer> AuctionOffers { get; set; }
 
         public ExchangeContext()
             : base("Exchange")

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Exchange.Domain.Auction;
+using Exchange.ViewModel.AuctionOffer;
 
 namespace Exchange.ViewModel.Auction
 {
@@ -37,7 +38,11 @@ namespace Exchange.ViewModel.Auction
         [DisplayName("Status")]
         public AuctionStatus Status { get; set; }
 
+        public string UserId { get; set; }
+
         [DisplayName("Nazwa użytkownika")]
         public string UserName { get; set; }
+
+        public IEnumerable<AuctionOfferViewModel> AuctionOffers { get; set; }
     }
 }

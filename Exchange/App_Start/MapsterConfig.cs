@@ -6,6 +6,7 @@ using System.Web.Configuration;
 using Exchange.Controllers;
 using Exchange.Domain.Auction;
 using Exchange.ViewModel.Auction;
+using Exchange.ViewModel.AuctionOffer;
 using Mapster;
 
 namespace Exchange.App_Start
@@ -27,7 +28,7 @@ namespace Exchange.App_Start
                 .Map(dest => dest.Status, src => (AuctionStatus)src.Status);
 
             TypeAdapterConfig<AuctionGridViewModel, Auction>.NewConfig()
-                .Ignore(dest => dest.AuctionHistories)
+                .Ignore(dest => dest.AuctionOffers)
                 .Ignore(dest => dest.AuctionFiles)
                 .Ignore(dest => dest.UserId)
                 .Ignore(dest => dest.LastPriceChangeDate)
@@ -35,15 +36,25 @@ namespace Exchange.App_Start
 
             TypeAdapterConfig<Auction, AuctionViewModel>.NewConfig()
                 .Ignore(dest => dest.UserName)
-                .Map(dest => dest.Status, src => (AuctionStatus)src.Status);
+                .Map(dest => dest.Status, src => (AuctionStatus) src.Status)
+                .Map(dest => dest.AuctionOffers, src => TypeAdapter.Adapt<IEnumerable<AuctionOffer>, IEnumerable<AuctionOfferViewModel>>(src.AuctionOffers));
+
 
             TypeAdapterConfig<AuctionViewModel, Auction>.NewConfig()
-                .Ignore(dest => dest.AuctionHistories)
+                .Ignore(dest => dest.AuctionOffers)
                 .Ignore(dest => dest.AuctionFiles)
-                .Ignore(dest => dest.UserId)
                 .Ignore(dest => dest.LastPriceChangeDate)
                 .Ignore(dest => dest.Price)
+                .Ignore(dest => dest.AuctionOffers)
                 .Map(dest => dest.Status, src => (int)src.Status);
+
+            #endregion
+
+            #region AuctionOffer
+
+            TypeAdapterConfig<AuctionOfferViewModel, AuctionOffer>.NewConfig()
+                .Ignore(dest => dest.Auction)
+                .Ignore(dest => dest.Id);
 
 
             #endregion
