@@ -1,11 +1,13 @@
 ﻿using Exchange.DataAccess.Context;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Exchange.Abstract.Services;
 using Exchange.Domain.Auction;
+using Exchange.Hubs.AuctionProgress;
 using Exchange.Infrastructure.Extensions;
 using Exchange.ViewModel.Auction;
 using Exchange.ViewModel.AuctionOffer;
@@ -132,10 +134,15 @@ namespace Exchange.Controllers
                 return Json(new { success = false });
 
             var auctionOffer = TypeAdapter.Adapt<AuctionOfferViewModel, AuctionOffer>(viewModel);
+            auctionOffer.UserId = User.Identity.GetUserId();
             
             try
             {
                 _auctionOfferService.AddAuctionOffer(auctionOffer);
+
+                var auctionProgress = Hubs.AuctionProgress.AuctionProgress.Instance;
+                auctionProgress.BroadcastAuctionProgress(auctionOffer);
+
                 return Json(new { success = true });
             }
             catch (Exception e)

@@ -31,7 +31,7 @@ function AuctionViewModel(data) {
 
     self.AddOffer = function () {
         var actualDateTime = new Date().toISOString();
-        self.auctionOffers.push(new AuctionOffer(self.Id(), self.UserId(), self.UserName(), actualDateTime, self.PriceToOffer(), true));
+        self.AuctionOffers.push(new AuctionOffer(self.Id(), self.UserId(), self.UserName(), actualDateTime, self.PriceToOffer(), true));
 
         //$.ajax({
         //    url: this.action,
@@ -51,22 +51,23 @@ function AuctionViewModel(data) {
         //});
     }
 
-    self.LoadOffers = function (offers) {
+    self.loadOffers = function (offers) {
         if (offers) {
+            self.AuctionOffers.removeAll();
             ko.utils.arrayForEach(offers, function(offer) {
-                self.AuctionOffers.push(new AuctionOffer(offer.Id, offer.UserId, offer.UserName, offer.Date, self.PriceToOffer, true));
+                self.AuctionOffers.push(new AuctionOffer(offer.Id, offer.UserId, offer.UserName, offer.Date, offer.Price, true));
             });
         }
     }
 
-    self.Load = function (dataJson) {
+    self.load = function (dataJson) {
         debugger;
         if (dataJson) {
             ko.mapping.fromJSON(dataJson, {}, self);
             var dataJs = ko.mapping.fromJSON(dataJson);
-            self.LoadOffers(dataJs.AuctionOffers);
+            self.loadOffers(dataJs.AuctionOffers());
         }
     }
 
-    self.Load(data);
+    self.load(data);
 }
