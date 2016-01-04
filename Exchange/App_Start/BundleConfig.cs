@@ -41,6 +41,10 @@ namespace Exchange
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
                 "~/Scripts/knockout-3.4.0.debug.js",
                 "~/Scripts/knockout.mapping-latest.debug.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/signalR").Include(
+                "~/Scripts/jquery.signalR-2.1.2.js",
+                "~/signalr/hubs"));
         }
     }
 }

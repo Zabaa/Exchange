@@ -34,7 +34,7 @@
 </div>
 
 <div class="row" style="margin-bottom: 25px;">
-    <form class="form-inline">
+    <form class="form-inline" data-bind="submit: submitOffer">
         <label class="col-xs-2">Zaproponuj kwote</label>
         <div class="form-group col-xs-4">
             <div class="input-group">
@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="col-xs-4">
-            <button data-bind="click: AddOffer" type="submit" class="btn btn-primary">Licytuj</button>
+            <button type="submit" class="btn btn-primary">Licytuj</button>
         </div>
     </form>
 </div>
@@ -78,10 +78,21 @@
 {
     @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/Scripts/KnockoutModels/AuctionVM.js")
+    <script src="~/Scripts/jquery.signalR-2.1.2.js"></script>
+    <script src="~/signalr/hubs"></script>
 
     <script>
-            var model = '@Html.Raw(HttpUtility.JavaScriptStringEncode(Newtonsoft.Json.JsonConvert.SerializeObject(Model)))';
-            var viewModel = new AuctionViewModel(model);
-            ko.applyBindings(viewModel);
+        var model = '@Html.Raw(HttpUtility.JavaScriptStringEncode(Newtonsoft.Json.JsonConvert.SerializeObject(Model)))';
+        var addOfferUrl = '@Url.Action("AddOffer", "Auction")';
+        var viewModel = new AuctionViewModel(model, addOfferUrl);
+        ko.applyBindings(viewModel);
+
+        var auctionHub = $.connection.auctionProgressHub;
+        auctionHub.client.addStockPrice = function(auctionOffer) {
+            viewModel.addOffer(auctionOffer);
+        };
+
+        $.connection.hub.start();
+
     </script>
 }
