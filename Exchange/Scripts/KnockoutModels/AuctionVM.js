@@ -25,7 +25,11 @@ function AuctionViewModel(data, addOfferUrl) {
         new AuctionOffer(1, '147b92ec-0e72-4265-bcd8-a4eb72c5d72c', 'Piotr K', '2015-12-15 21:47:43', '120.00', true)
     ]);
 
-    self.submitOffer = function (formElement) {
+    self.TimelineInverted = ko.computed(function () {
+        return !(self.AuctionOffers().length % 2 === 0);
+    });
+
+    self.submitOffer = function(formElement) {
         $(formElement).validate();
         if (!$(formElement).valid()) {
             return false;
@@ -39,28 +43,28 @@ function AuctionViewModel(data, addOfferUrl) {
             type: "POST",
             cache: false,
             data: offer,
-            success: function (result) {
+            success: function(result) {
                 if (result.success) {
                     console.log("Oferta dodana");
                 } else if (result.success === false) {
                     alert("Wystąpił błąd");
-                }
-                else {
+                } else {
                     alert("Wystąpił błąd");
                 }
             }
         });
-    }
+        return false;
+    };
 
     self.addOffer = function (offer) {
-        self.AuctionOffers.push(new AuctionOffer(offer.AuctionId, offer.UserId, offer.UserName, offer.Date, offer.Price, true));
+        self.AuctionOffers.push(new AuctionOffer(offer.AuctionId, offer.UserId, offer.UserName, offer.Date, offer.Price, self.TimelineInverted()));
     }
 
     self.loadOffers = function (offers) {
         if (offers) {
             self.AuctionOffers.removeAll();
             ko.utils.arrayForEach(offers, function(offer) {
-                self.AuctionOffers.push(new AuctionOffer(offer.AuctionId, offer.UserId, offer.UserName, offer.Date, offer.Price, true));
+                self.AuctionOffers.push(new AuctionOffer(offer.AuctionId, offer.UserId, offer.UserName, offer.Date, offer.Price, self.TimelineInverted()));
             });
         }
     }
