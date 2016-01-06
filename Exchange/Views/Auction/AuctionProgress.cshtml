@@ -38,8 +38,8 @@
         <label class="col-xs-2">Zaproponuj kwote</label>
         <div class="form-group col-xs-4">
             <div class="input-group">
-                <div class="input-group-addon">PLN</div>
-                <input type="text" data-bind="value: PriceToOffer" class="form-control" placeholder="Kwota">
+                <span class="input-group-addon">PLN</span>
+                <input type="text" data-bind="value: PriceToOffer" class="form-control validate-offerPrice" placeholder="Kwota">
             </div>
         </div>
         <div class="col-xs-4">
@@ -82,10 +82,13 @@
     <script src="~/signalr/hubs"></script>
 
     <script>
+
+
         var model = '@Html.Raw(HttpUtility.JavaScriptStringEncode(Newtonsoft.Json.JsonConvert.SerializeObject(Model)))';
         var addOfferUrl = '@Url.Action("AddOffer", "Auction")';
         var viewModel = new AuctionViewModel(model, addOfferUrl);
         ko.applyBindings(viewModel);
+        defineValidationRules();
 
         var auctionHub = $.connection.auctionProgressHub;
         auctionHub.client.addStockPrice = function(auctionOffer) {
@@ -94,5 +97,33 @@
 
         $.connection.hub.start();
 
+        function ValidateInteger(value, element, param) {
+            if (!value) {
+                // Null and empty strings are invalid as far as we are concerned.
+                return false;
+            }
+            var parsedNumber = parseInt(value);
+            if (isNaN(parsedNumber)) {
+                return false;
+            } else {
+                return (value == parsedNumber);
+            }
+        }
+
+        function ValidateBiggestPrice(value) {
+            if (!value) {
+                return false;
+            }
+            return value >= viewModel.getBiggestPrice();
+        };
+
+        function defineValidationRules() {
+            $.validator.addMethod("offerPrice", $.validator.methods.required, "Należy podać cene");
+            $.validator.addMethod("offerNumber", ValidateInteger, "Cena musi być liczbą");
+            $.validator.addMethod("offerMinPrice", $.validator.methods.min, $.format("Cena musi być większa niż {0} PLN"));
+            $.validator.addMethod("offerBiggestPrice", ValidateBiggestPrice, "Cena musi być większa niż cena poprzedniej oferty - {0} PLN");
+
+            $.validator.addClassRules("validate-offerPrice", { offerPrice: true, offerNumber: true, offerMinPrice: 0, offerBiggestPrice: viewModel.getBiggestPrice() });
+        };
     </script>
 }
