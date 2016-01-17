@@ -54,7 +54,7 @@
     </div>
     <ul class="timeline" data-bind="foreach: AuctionOffers">
         <li data-bind="css: { 'timeline-inverted': TimelineInverted}">
-            <div class="timeline-badge">
+            <div class="timeline-badge success">
                 <i class="glyphicon glyphicon-thumbs-up"></i>
             </div>
             <div class="timeline-panel">
@@ -78,17 +78,18 @@
 {
     @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/Scripts/KnockoutModels/AuctionVM.js")
+    @Scripts.Render("~/Scripts/validationRules.js")
     <script src="~/Scripts/jquery.signalR-2.1.2.js"></script>
     <script src="~/signalr/hubs"></script>
 
     <script>
-
-
         var model = '@Html.Raw(HttpUtility.JavaScriptStringEncode(Newtonsoft.Json.JsonConvert.SerializeObject(Model)))';
         var addOfferUrl = '@Url.Action("AddOffer", "Auction")';
         var viewModel = new AuctionViewModel(model, addOfferUrl);
         ko.applyBindings(viewModel);
-        defineValidationRules();
+
+        var validationRules = new ValidationRules(viewModel);
+        validationRules.defineValidationRules();
 
         var auctionHub = $.connection.auctionProgressHub;
         auctionHub.client.addStockPrice = function(auctionOffer) {
@@ -96,34 +97,5 @@
         };
 
         $.connection.hub.start();
-
-        function ValidateInteger(value, element, param) {
-            if (!value) {
-                // Null and empty strings are invalid as far as we are concerned.
-                return false;
-            }
-            var parsedNumber = parseInt(value);
-            if (isNaN(parsedNumber)) {
-                return false;
-            } else {
-                return (value == parsedNumber);
-            }
-        }
-
-        function ValidateBiggestPrice(value) {
-            if (!value) {
-                return false;
-            }
-            return value >= viewModel.getBiggestPrice();
-        };
-
-        function defineValidationRules() {
-            $.validator.addMethod("offerPrice", $.validator.methods.required, "Należy podać cene");
-            $.validator.addMethod("offerNumber", ValidateInteger, "Cena musi być liczbą");
-            $.validator.addMethod("offerMinPrice", $.validator.methods.min, $.format("Cena musi być większa niż {0} PLN"));
-            $.validator.addMethod("offerBiggestPrice", ValidateBiggestPrice, "Cena musi być większa niż cena poprzedniej oferty - {0} PLN");
-
-            $.validator.addClassRules("validate-offerPrice", { offerPrice: true, offerNumber: true, offerMinPrice: 0, offerBiggestPrice: viewModel.getBiggestPrice() });
-        };
     </script>
 }

@@ -25,7 +25,8 @@ namespace Exchange.App_Start
             #region Auction
 
             TypeAdapterConfig<Auction, AuctionGridViewModel>.NewConfig()
-                .Map(dest => dest.Status, src => (AuctionStatus)src.Status);
+                .Map(dest => dest.Status, src => (AuctionStatus) src.Status)
+                .Map(dest => dest.Price, src => src.AuctionOffers != null && src.AuctionOffers.Any() ? src.AuctionOffers.Max(a => a.Price) : src.OpenPrice);
 
             TypeAdapterConfig<AuctionGridViewModel, Auction>.NewConfig()
                 .Ignore(dest => dest.AuctionOffers)

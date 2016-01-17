@@ -19,6 +19,7 @@ namespace Exchange.ViewModel.AuctionOffer
         public DateTime Date { get; set; }
 
         [Required]
+        [Range(0.0, Double.MaxValue)]
         public decimal Price { get; set; }
     }
 }

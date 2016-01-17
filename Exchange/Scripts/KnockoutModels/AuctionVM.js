@@ -31,7 +31,7 @@ function AuctionViewModel(data, addOfferUrl) {
 
     self.getBiggestPrice = function() {
         var result = Math.max.apply(null, ko.utils.arrayMap(self.AuctionOffers(), function (offer) {
-            return offer.Price();
+            return offer.Price;
         }));
 
         return result;
@@ -72,7 +72,7 @@ function AuctionViewModel(data, addOfferUrl) {
         if (offers) {
             self.AuctionOffers.removeAll();
             ko.utils.arrayForEach(offers, function(offer) {
-                self.AuctionOffers.push(new AuctionOffer(offer.AuctionId, offer.UserId, offer.UserName, offer.Date, offer.Price, self.TimelineInverted()));
+                self.AuctionOffers.push(new AuctionOffer(offer.AuctionId(), offer.UserId(), offer.UserName, offer.Date(), offer.Price(), self.TimelineInverted()));
             });
         }
     }

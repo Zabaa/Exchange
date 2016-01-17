@@ -251,6 +251,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\c3.js" />
     <Content Include="Scripts\c3.min.js" />
+    <Content Include="Scripts\validationRules.js" />
     <Content Include="Scripts\d3.js" />
     <Content Include="Scripts\d3.min.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
