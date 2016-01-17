@@ -52,7 +52,7 @@
     <div class="page-header">
         <h2 id="timeline">Przebieg aukcji</h2>
     </div>
-    <ul class="timeline" data-bind="foreach: AuctionOffers">
+    <ul class="timeline" data-bind="foreach: AuctionOffers" id="auctionOffers" style="max-height: 350px;overflow-y: scroll">
         <li data-bind="css: { 'timeline-inverted': TimelineInverted}">
             <div class="timeline-badge success">
                 <i class="glyphicon glyphicon-thumbs-up"></i>
@@ -91,11 +91,24 @@
         var validationRules = new ValidationRules(viewModel);
         validationRules.defineValidationRules();
 
+        scrollToBottom();
+
         var auctionHub = $.connection.auctionProgressHub;
         auctionHub.client.addStockPrice = function(auctionOffer) {
             viewModel.addOffer(auctionOffer);
+            scrollToBottomAnimate();
         };
 
         $.connection.hub.start();
+
+        function scrollToBottom() {
+            var objOffers = document.getElementById("auctionOffers");
+            objOffers.scrollTop = objOffers.scrollHeight;
+        };
+
+        function scrollToBottomAnimate() {
+            var auctionOffers = $("#auctionOffers");
+            auctionOffers.animate({ scrollTop: auctionOffers.prop("scrollHeight") }, 1000);
+        };
     </script>
 }
