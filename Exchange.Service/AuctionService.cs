@@ -43,6 +43,7 @@ namespace Exchange.Service
                 auctionToUpdate.Description = auction.Description;
                 auctionToUpdate.OpenPrice = auction.OpenPrice;
                 auctionToUpdate.StartDate = auction.StartDate;
+                auctionToUpdate.PredictedEndDate = auction.PredictedEndDate;
                 auctionToUpdate.Status = auction.Status;
                 _exchangeContext.SaveChanges();
             }

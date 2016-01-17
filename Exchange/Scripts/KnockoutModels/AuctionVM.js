@@ -29,6 +29,10 @@ function AuctionViewModel(data, addOfferUrl) {
         return !(self.AuctionOffers().length % 2 === 0);
     });
 
+    self.newOffersEnable = ko.computed(function() {
+        return new Date(self.PredictedEndDate()) > new Date();
+    });
+
     self.getBiggestPrice = function() {
         var result = Math.max.apply(null, ko.utils.arrayMap(self.AuctionOffers(), function (offer) {
             return offer.Price;

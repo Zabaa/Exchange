@@ -39,11 +39,11 @@
         <div class="form-group col-xs-4">
             <div class="input-group">
                 <span class="input-group-addon">PLN</span>
-                <input type="text" data-bind="value: PriceToOffer" class="form-control validate-offerPrice" placeholder="Kwota">
+                <input type="text" data-bind="value: PriceToOffer, enable: newOffersEnable" class="form-control validate-offerPrice" placeholder="Kwota">
             </div>
         </div>
         <div class="col-xs-4">
-            <button type="submit" class="btn btn-primary">Licytuj</button>
+            <button type="submit" class="btn btn-primary" data-bind="enable: newOffersEnable">Licytuj</button>
         </div>
     </form>
 </div>

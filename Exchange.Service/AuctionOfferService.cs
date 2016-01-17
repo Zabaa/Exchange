@@ -25,6 +25,9 @@ namespace Exchange.Service
 
         public void AddAuctionOffer(AuctionOffer auctionOffer)
         {
+            if (_exchangeContext.Auctions.Any(a => a.Id == auctionOffer.AuctionId && a.PredictedEndDate < DateTime.Now))
+                return;
+
             if(_exchangeContext.AuctionOffers.Any(a => a.AuctionId == auctionOffer.Id && a.Price >= auctionOffer.Price))
                 return;
 
