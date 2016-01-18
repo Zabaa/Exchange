@@ -33,6 +33,13 @@
     </div>
 </div>
 
+<div data-bind="visible: endOfAuction" class="alert alert-info text-center" role="alert">Aukcja została zakończona.</div>
+
+<div data-bind="visible: soonEndOfAuction" class="alert alert-warning alert-dismissible text-center" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Uwaga!</strong> Do końca aukcji zostało niewiele czasu.
+</div>
+
 <div class="row" style="margin-bottom: 25px;">
     <form class="form-inline" data-bind="submit: submitOffer">
         <label class="col-xs-2">Zaproponuj kwote</label>

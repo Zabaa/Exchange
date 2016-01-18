@@ -33,11 +33,23 @@ function AuctionViewModel(data, addOfferUrl) {
         return new Date(self.PredictedEndDate()) > new Date();
     });
 
+    self.endOfAuction = ko.computed(function () {
+        return new Date(self.PredictedEndDate()) < new Date();
+    });
+
+    self.soonEndOfAuction = ko.computed(function() {
+        if (self.endOfAuction()) {
+            return false;
+        }
+        var date = new Date();
+        date.setDate(date.getDate() + 1);
+        return new Date(self.PredictedEndDate()) < date;
+    });
+
     self.getBiggestPrice = function() {
         var result = Math.max.apply(null, ko.utils.arrayMap(self.AuctionOffers(), function (offer) {
             return offer.Price;
         }));
-
         return result;
     };
 
