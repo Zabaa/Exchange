@@ -32,6 +32,7 @@ namespace Exchange.App_Start
                 .Ignore(dest => dest.AuctionOffers)
                 .Ignore(dest => dest.AuctionFiles)
                 .Ignore(dest => dest.UserId)
+                .Ignore(dest => dest.User)
                 .Ignore(dest => dest.LastPriceChangeDate)
                 .Map(dest => dest.Status, src => (int)src.Status);
 
@@ -47,15 +48,20 @@ namespace Exchange.App_Start
                 .Ignore(dest => dest.LastPriceChangeDate)
                 .Ignore(dest => dest.Price)
                 .Ignore(dest => dest.AuctionOffers)
+                .Ignore(dest => dest.User)
                 .Map(dest => dest.Status, src => (int)src.Status);
 
             #endregion
 
             #region AuctionOffer
 
+            TypeAdapterConfig<AuctionOffer, AuctionOfferViewModel>.NewConfig()
+                .Map(dest => dest.UserName, src => src.User != null ? src.User.UserName : string.Empty);
+
             TypeAdapterConfig<AuctionOfferViewModel, AuctionOffer>.NewConfig()
                 .Ignore(dest => dest.Auction)
-                .Ignore(dest => dest.Id);
+                .Ignore(dest => dest.Id)
+                .Ignore(dest => dest.User);
 
 
             #endregion

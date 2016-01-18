@@ -7,13 +7,13 @@ namespace Exchange.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Changes : IMigrationMetadata
+    public sealed partial class AuctionOfferUserRelation : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Changes));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AuctionOfferUserRelation));
         
         string IMigrationMetadata.Id
         {
-            get { return "201512291256484_Changes"; }
+            get { return "201601182043569_AuctionOfferUserRelation"; }
         }
         
         string IMigrationMetadata.Source

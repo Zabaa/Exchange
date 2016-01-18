@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Exchange.Domain.Account;
 
 namespace Exchange.Domain.Auction
 {
@@ -17,9 +15,10 @@ namespace Exchange.Domain.Auction
         public DateTime? LastPriceChangeDate { get; set; }
         public int Status { get; set; }
 
-        public string UserId { get; set; }
-
         public virtual ICollection<AuctionFile> AuctionFiles { get; set; }
         public virtual ICollection<AuctionOffer> AuctionOffers { get; set; }
+
+        public string UserId { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

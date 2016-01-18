@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Exchange.Domain.Auction;
+using Exchange.ViewModel.AuctionOffer;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 
@@ -26,7 +27,7 @@ namespace Exchange.Hubs.AuctionProgress
             _clients = clients;
         }
 
-        public void BroadcastAuctionProgress(AuctionOffer auctionOffer)
+        public void BroadcastAuctionProgress(AuctionOfferViewModel auctionOffer)
         {
             _clients.All.addStockPrice(auctionOffer);
         }

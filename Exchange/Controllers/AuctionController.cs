@@ -141,7 +141,7 @@ namespace Exchange.Controllers
                 _auctionOfferService.AddAuctionOffer(auctionOffer);
 
                 var auctionProgress = Hubs.AuctionProgress.AuctionProgress.Instance;
-                auctionProgress.BroadcastAuctionProgress(auctionOffer);
+                auctionProgress.BroadcastAuctionProgress(viewModel);
 
                 return Json(new { success = true });
             }

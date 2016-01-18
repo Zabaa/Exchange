@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +15,8 @@ namespace Exchange.ViewModel.AuctionOffer
 
         [Required]
         public string UserId { get; set; }
+
+        public string UserName { get; set; }
 
         [Required]
         public DateTime Date { get; set; }

@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using Exchange.DataAccess.Context;
+using Exchange.Domain.Account;
 using Exchange.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Exchange.Infrastructure
 {
-    public class DbInitializer : CreateDatabaseIfNotExists<ApplicationDbContext>
+    public class DbInitializer : CreateDatabaseIfNotExists<ExchangeContext>
     {
-        protected override void Seed(ApplicationDbContext context)
+        protected override void Seed(ExchangeContext context)
         {
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));

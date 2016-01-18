@@ -1,12 +1,15 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Linq;
 using Exchange.DataAccess.DomainConfiguration;
 using Exchange.Domain;
+using Exchange.Domain.Account;
 using Exchange.Domain.Auction;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Exchange.DataAccess.Context
 {
-    public class ExchangeContext : DbContext
+    public class ExchangeContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<Auction> Auctions { get; set; }
@@ -25,6 +28,11 @@ namespace Exchange.DataAccess.Context
             modelBuilder.Configurations.Add(new StockConfig());
 
             base.OnModelCreating(modelBuilder);
+        }
+
+        public static ExchangeContext Create()
+        {
+            return new ExchangeContext();
         }
     }
 }

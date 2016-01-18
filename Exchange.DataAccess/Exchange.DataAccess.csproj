@@ -36,6 +36,12 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.1.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -49,17 +55,13 @@
     <Compile Include="Context\ExchangeContext.cs" />
     <Compile Include="DomainConfiguration\AuctionConfig.cs" />
     <Compile Include="DomainConfiguration\StockConfig.cs" />
-    <Compile Include="Migrations\201512011939502_Initial.cs" />
-    <Compile Include="Migrations\201512011939502_Initial.Designer.cs">
-      <DependentUpon>201512011939502_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201601182035547_Initial.cs" />
+    <Compile Include="Migrations\201601182035547_Initial.Designer.cs">
+      <DependentUpon>201601182035547_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201512141953334_ChangeUserIdType.cs" />
-    <Compile Include="Migrations\201512141953334_ChangeUserIdType.Designer.cs">
-      <DependentUpon>201512141953334_ChangeUserIdType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512291256484_Changes.cs" />
-    <Compile Include="Migrations\201512291256484_Changes.Designer.cs">
-      <DependentUpon>201512291256484_Changes.cs</DependentUpon>
+    <Compile Include="Migrations\201601182043569_AuctionOfferUserRelation.cs" />
+    <Compile Include="Migrations\201601182043569_AuctionOfferUserRelation.Designer.cs">
+      <DependentUpon>201601182043569_AuctionOfferUserRelation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,14 +80,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512011939502_Initial.resx">
-      <DependentUpon>201512011939502_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201601182035547_Initial.resx">
+      <DependentUpon>201601182035547_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512141953334_ChangeUserIdType.resx">
-      <DependentUpon>201512141953334_ChangeUserIdType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512291256484_Changes.resx">
-      <DependentUpon>201512291256484_Changes.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201601182043569_AuctionOfferUserRelation.resx">
+      <DependentUpon>201601182043569_AuctionOfferUserRelation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
