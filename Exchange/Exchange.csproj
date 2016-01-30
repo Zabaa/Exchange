@@ -203,6 +203,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuctionController.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StockMonitorController.cs" />
@@ -231,6 +232,7 @@
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chat.css" />
     <Content Include="Content\custom-styles.css" />
     <Content Include="Content\timeline.css" />
     <Content Include="favicon.ico" />
@@ -250,6 +252,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\c3.js" />
     <Content Include="Scripts\c3.min.js" />
+    <Content Include="Scripts\KnockoutModels\chatVM.js" />
     <Content Include="Scripts\validationRules.js" />
     <Content Include="Scripts\d3.js" />
     <Content Include="Scripts\d3.min.js" />
@@ -383,6 +386,7 @@
     <Content Include="Views\Auction\_Update.cshtml" />
     <Content Include="Views\Auction\StartedAuctions.cshtml" />
     <Content Include="Views\Auction\AuctionProgress.cshtml" />
+    <Content Include="Views\Chat\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

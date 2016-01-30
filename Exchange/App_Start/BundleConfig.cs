@@ -45,6 +45,8 @@ namespace Exchange
             bundles.Add(new ScriptBundle("~/bundles/signalR").Include(
                 "~/Scripts/jquery.signalR-2.1.2.js",
                 "~/signalr/hubs"));
+
+            bundles.Add(new StyleBundle("~/Content/chat").Include("~/Content/chat.css"));
         }
     }
 }
