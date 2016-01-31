@@ -10,6 +10,7 @@ namespace Exchange.ViewModel.Chat
     {
         public int Id { get; set; }
         public string RecipientId { get; set; }
+        public string RecipientName { get; set; }
         public string SenderId { get; set; }
 
         public IEnumerable<MessageViewModel> Messages { get; set; }

@@ -6,10 +6,11 @@
     self.Date = date;
 }
 
-function chatConversation(id, recipientId, messages) {
+function chatConversation(id, recipientId, recipientName, messages) {
     var self = this;
     self.Id = id;
     self.RecipientId = recipientId;
+    self.RecipientName = recipientName;
     self.Messages = ko.observableArray(messages);
 }
 
@@ -39,7 +40,7 @@ function chatViewModel(data) {
         if (conversations) {
             self.AuctionOffers.removeAll();
             ko.utils.arrayForEach(conversations, function (conversation) {
-                self.ContactList.push(new chatConversation(conversation.Id(), conversation.RecipientId(), conversation.Messages()));
+                self.Conversations.push(new chatConversation(conversation.Id(), conversation.RecipientId(), conversation.Messages()));
             });
         }
     }
@@ -49,7 +50,6 @@ function chatViewModel(data) {
         if (dataJson) {
             ko.mapping.fromJSON(dataJson, {}, self);
             var dataJs = ko.mapping.fromJSON(dataJson);
-            self.loadContacts(dataJs.ContactList());
             self.loadConversations(dataJs.Conversations());
         }
     }
