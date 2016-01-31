@@ -90,23 +90,25 @@
     <script src="~/signalr/hubs"></script>
 
     <script>
-        var model = '@Html.Raw(HttpUtility.JavaScriptStringEncode(Newtonsoft.Json.JsonConvert.SerializeObject(Model)))';
-        var addOfferUrl = '@Url.Action("AddOffer", "Auction")';
-        var viewModel = new AuctionViewModel(model, addOfferUrl);
-        ko.applyBindings(viewModel);
+        $(document).ready(function() {
+            var model = '@Html.Raw(HttpUtility.JavaScriptStringEncode(Newtonsoft.Json.JsonConvert.SerializeObject(Model)))';
+            var addOfferUrl = '@Url.Action("AddOffer", "Auction")';
+            var viewModel = new AuctionViewModel(model, addOfferUrl);
+            ko.applyBindings(viewModel);
 
-        var validationRules = new ValidationRules(viewModel);
-        validationRules.defineValidationRules();
+            var validationRules = new ValidationRules(viewModel);
+            validationRules.defineValidationRules();
 
-        scrollToBottom();
+            scrollToBottom();
 
-        var auctionHub = $.connection.auctionProgressHub;
-        auctionHub.client.addStockPrice = function(auctionOffer) {
-            viewModel.addOffer(auctionOffer);
-            scrollToBottomAnimate();
-        };
+            var auctionHub = $.connection.auctionProgressHub;
+            auctionHub.client.addStockPrice = function (auctionOffer) {
+                viewModel.addOffer(auctionOffer);
+                scrollToBottomAnimate();
+            };
 
-        $.connection.hub.start();
+            $.connection.hub.start();
+        });
 
         function scrollToBottom() {
             var objOffers = document.getElementById("auctionOffers");

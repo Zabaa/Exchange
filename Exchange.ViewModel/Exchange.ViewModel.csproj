@@ -46,6 +46,8 @@
     <Compile Include="Auction\AuctionViewModel.cs" />
     <Compile Include="BaseGridViewModel.cs" />
     <Compile Include="BasePaginViewModel.cs" />
+    <Compile Include="Chat\ConversationViewModel.cs" />
+    <Compile Include="Chat\MessageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +56,7 @@
       <Name>Exchange.Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

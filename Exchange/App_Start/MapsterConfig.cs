@@ -5,8 +5,10 @@ using System.Web;
 using System.Web.Configuration;
 using Exchange.Controllers;
 using Exchange.Domain.Auction;
+using Exchange.Domain.Chat;
 using Exchange.ViewModel.Auction;
 using Exchange.ViewModel.AuctionOffer;
+using Exchange.ViewModel.Chat;
 using Mapster;
 
 namespace Exchange.App_Start
@@ -39,7 +41,10 @@ namespace Exchange.App_Start
             TypeAdapterConfig<Auction, AuctionViewModel>.NewConfig()
                 .Ignore(dest => dest.UserName)
                 .Map(dest => dest.Status, src => (AuctionStatus) src.Status)
-                .Map(dest => dest.AuctionOffers, src => TypeAdapter.Adapt<IEnumerable<AuctionOffer>, IEnumerable<AuctionOfferViewModel>>(src.AuctionOffers));
+                .Map(dest => dest.AuctionOffers,
+                    src =>
+                        TypeAdapter.Adapt<IEnumerable<AuctionOffer>, IEnumerable<AuctionOfferViewModel>>(
+                            src.AuctionOffers));
 
 
             TypeAdapterConfig<AuctionViewModel, Auction>.NewConfig()
@@ -63,6 +68,23 @@ namespace Exchange.App_Start
                 .Ignore(dest => dest.Id)
                 .Ignore(dest => dest.User);
 
+
+            #endregion
+
+            #region Chat class
+
+            TypeAdapterConfig<Message, MessageViewModel>.NewConfig();
+
+            TypeAdapterConfig<MessageViewModel, Message>.NewConfig()
+                .Ignore(dest => dest.Conversation);
+
+            TypeAdapterConfig<Conversation, ConversationViewModel>.NewConfig()
+                .Map(dest => dest.Messages,
+                    src => TypeAdapter.Adapt<IEnumerable<Message>, IEnumerable<MessageViewModel>>(src.Messages));
+
+            TypeAdapterConfig<ConversationViewModel, Conversation>.NewConfig()
+                .Ignore(dest => dest.Recipient)
+                .Ignore(dest => dest.Sender);
 
             #endregion
         }

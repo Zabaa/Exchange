@@ -20,8 +20,7 @@ namespace Exchange.Service
 
         public IEnumerable<Conversation> GetConversations(string userId)
         {
-            //return _exchangeContext.Conversations.Where(c => c.SenderId.Equals(userId) || c.RecipientId.Equals(userId));
-            return Enumerable.Empty<Conversation>();
+            return _exchangeContext.Conversations.Where(c => c.SenderId.Equals(userId) || c.RecipientId.Equals(userId));
         }
     }
 }

@@ -23,7 +23,6 @@ function chatContact(recipientId, status) {
 function chatViewModel(data) {
     var self = this;
 
-    self.Id = ko.observable();
     self.ContactList = ko.observableArray();
     self.Conversations = ko.observableArray();
 
