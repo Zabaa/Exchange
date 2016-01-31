@@ -42,6 +42,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IAuctionOfferService.cs" />
     <Compile Include="Services\IAuctionService.cs" />
+    <Compile Include="Services\IConversationService.cs" />
     <Compile Include="Services\IStockService.cs" />
   </ItemGroup>
   <ItemGroup>

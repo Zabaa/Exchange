@@ -5,6 +5,7 @@ using Exchange.DataAccess.DomainConfiguration;
 using Exchange.Domain;
 using Exchange.Domain.Account;
 using Exchange.Domain.Auction;
+using Exchange.Domain.Chat;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Exchange.DataAccess.Context
@@ -15,6 +16,8 @@ namespace Exchange.DataAccess.Context
         public DbSet<Auction> Auctions { get; set; }
         public DbSet<AuctionFile> AuctionFiles { get; set; }
         public DbSet<AuctionOffer> AuctionOffers { get; set; }
+        public DbSet<Conversation> Conversations { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         public ExchangeContext()
             : base("Exchange")

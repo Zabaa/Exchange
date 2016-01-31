@@ -63,6 +63,10 @@
     <Compile Include="Migrations\201601182043569_AuctionOfferUserRelation.Designer.cs">
       <DependentUpon>201601182043569_AuctionOfferUserRelation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601311209401_Chat.cs" />
+    <Compile Include="Migrations\201601311209401_Chat.Designer.cs">
+      <DependentUpon>201601311209401_Chat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -85,6 +89,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601182043569_AuctionOfferUserRelation.resx">
       <DependentUpon>201601182043569_AuctionOfferUserRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601311209401_Chat.resx">
+      <DependentUpon>201601311209401_Chat.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
