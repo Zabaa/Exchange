@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Exchange.Controllers
 {
+    [Authorize]
     public class ChatController : Controller
     {
         private readonly IConversationService _conversationService;
@@ -26,8 +27,12 @@ namespace Exchange.Controllers
             var conversations = _conversationService.GetConversations(User.Identity.GetUserId());
             var conversationViewModel =
                 TypeAdapter.Adapt<IEnumerable<Conversation>, IEnumerable<ConversationViewModel>>(conversations);
+            var chatViewModel = new ChatViewModel
+            {
+                Conversations = conversationViewModel
+            };
 
-            return View(conversationViewModel);
+            return View(chatViewModel);
         }
     }
 }

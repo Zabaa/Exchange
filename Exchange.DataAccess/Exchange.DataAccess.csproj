@@ -67,6 +67,10 @@
     <Compile Include="Migrations\201601311209401_Chat.Designer.cs">
       <DependentUpon>201601311209401_Chat.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602051831151_UpdateMessage.cs" />
+    <Compile Include="Migrations\201602051831151_UpdateMessage.Designer.cs">
+      <DependentUpon>201602051831151_UpdateMessage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -92,6 +96,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601311209401_Chat.resx">
       <DependentUpon>201601311209401_Chat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602051831151_UpdateMessage.resx">
+      <DependentUpon>201602051831151_UpdateMessage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

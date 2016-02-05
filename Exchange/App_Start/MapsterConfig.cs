@@ -80,6 +80,7 @@ namespace Exchange.App_Start
 
             TypeAdapterConfig<Conversation, ConversationViewModel>.NewConfig()
                 .Map(dest => dest.RecipientName, src => src.Recipient != null ? src.Recipient.UserName : string.Empty)
+                .Map(dest => dest.SenderName, src => src.Sender != null ? src.Sender.UserName : string.Empty)
                 .Map(dest => dest.Messages,
                     src => TypeAdapter.Adapt<IEnumerable<Message>, IEnumerable<MessageViewModel>>(src.Messages));
 

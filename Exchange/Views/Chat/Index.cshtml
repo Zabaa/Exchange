@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Exchange.ViewModel.Chat.ConversationViewModel>
+﻿@model Exchange.ViewModel.Chat.ChatViewModel
 
 @{
     ViewBag.Title = "title";
@@ -13,13 +13,11 @@
     <div class="row">
         <div class="col-md-8">
             <ul data-bind="foreach: Conversations" class="nav nav-tabs" id="chatTab">
-                <li class="active"><a data-bind="attr: { 'data-target': Id }, text: RecipientName" data-toggle="tab"></a></li>
-                <li><a data-target="#profile" data-toggle="tab">Spartakus</a></li>
-                <li><a data-target="#messages" data-toggle="tab">Łukasz Zaborski</a></li>
+                <li><a data-bind="attr: { 'data-target': '#' + Id }, text: RecipientName" data-toggle="tab"></a></li>
             </ul>
             <div class="tab-content">
             <!-- ko foreach: Conversations -->
-                <div class="tab-pane active" id="home" data-bind="attr: { id : Id }">
+                <div class="tab-pane" id="home" data-bind="attr: { id : Id }">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <span class="glyphicon glyphicon-comment"></span> Chat
@@ -64,14 +62,15 @@
                         </div>
                         <div class="panel-body panel-body-chat">
                             <ul class="chat" data-bind="foreach: Messages">
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar" class="img-circle">
+                                <li class="clearfix" data-bind="css: MessageSide">
+                                    <span class="chat-img" data-bind="css: MessageContentSide">
+                                        <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar" class="img-circle" data-bind="attr: { src: ImgSource }">
                                     </span>
                                     <div class="chat-body clearfix">
                                         <div class="header">
-                                            <strong class="primary-font">Krasnal</strong> <small class="pull-right text-muted">
-                                                <span class="glyphicon glyphicon-time" data-bind="text: Date"></span>
+                                            <strong class="primary-font" data-bind="css: { 'pull-right': !IsSender }, text: IsSender ? $parent.SenderName : $parent.RecipientName"></strong>
+                                            <small class="text-muted" data-bind="css: { 'pull-right': IsSender }">
+                                                <span class=" glyphicon glyphicon-time" data-bind="text: Date"></span>
                                             </small>
                                         </div>
                                         <p data-bind="text: Content"></p>
@@ -119,11 +118,12 @@
 @section scripts
 {
     @Scripts.Render("~/bundles/knockout")
-    @Scripts.Render("~/Sccripts/KnockoutModels/chatVM.js")
+    @Scripts.Render("~/Scripts/KnockoutModels/chatVM.js")
 
     <script>
         $(document).ready(function () {
             var model = '@Html.Raw(HttpUtility.JavaScriptStringEncode(Newtonsoft.Json.JsonConvert.SerializeObject(Model)))';
+            debugger;
             var viewModel = new chatViewModel(model);
             ko.applyBindings(viewModel);
         });

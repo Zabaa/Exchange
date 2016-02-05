@@ -46,6 +46,7 @@
     <Compile Include="Auction\AuctionViewModel.cs" />
     <Compile Include="BaseGridViewModel.cs" />
     <Compile Include="BasePaginViewModel.cs" />
+    <Compile Include="Chat\ChatViewModel.cs" />
     <Compile Include="Chat\ConversationViewModel.cs" />
     <Compile Include="Chat\MessageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

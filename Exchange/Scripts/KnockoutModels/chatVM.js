@@ -1,17 +1,49 @@
-﻿function chatMessageViewModel(id, conversationId, content, date) {
+﻿function chatMessage(id, conversationId, content, date, isSender) {
     var self = this;
     self.Id = id;
     self.ConversationId = conversationId;
     self.Content = content;
     self.Date = date;
+    self.IsSender = isSender;
+
+    self.MessageSide = ko.computed(function() {
+        return self.IsSender ? "left" : "right";
+    });
+
+    self.MessageContentSide = ko.computed(function () {
+        return self.IsSender ? "pull-left" : "pull-right";
+    });
+
+    self.ImgSource = ko.computed(function() {
+        return self.IsSender
+            ? "http://placehold.it/50/55C1E7/fff&amp;text=U"
+            : "http://placehold.it/50/FA6F57/fff&amp;text=ME";
+    });
 }
 
-function chatConversation(id, recipientId, recipientName, messages) {
+function chatConversation(id, recipientId, recipientName, senderId, senderName, messages) {
     var self = this;
     self.Id = id;
     self.RecipientId = recipientId;
     self.RecipientName = recipientName;
-    self.Messages = ko.observableArray(messages);
+    self.SenderId = senderId;
+    self.SenderName = senderName;
+    self.Messages = ko.observableArray();
+
+    self.loadMessages = function (messages) {
+        if (messages) {
+            self.Messages.removeAll();
+            ko.utils.arrayForEach(messages, function (message) {
+                self.Messages.push(new chatMessage(
+                    message.Id(),
+                    message.ConversationId(),
+                    message.Content(),
+                    message.Date(),
+                    message.IsSender()));
+            });
+        }
+    }
+    self.loadMessages(messages);
 }
 
 function chatContact(recipientId, status) {
@@ -38,9 +70,15 @@ function chatViewModel(data) {
 
     self.loadConversations = function (conversations) {
         if (conversations) {
-            self.AuctionOffers.removeAll();
+            self.Conversations.removeAll();
             ko.utils.arrayForEach(conversations, function (conversation) {
-                self.Conversations.push(new chatConversation(conversation.Id(), conversation.RecipientId(), conversation.Messages()));
+                self.Conversations.push(new chatConversation(
+                    conversation.Id(),
+                    conversation.RecipientId(),
+                    conversation.RecipientName(),
+                    conversation.SenderId(),
+                    conversation.SenderName(),
+                    conversation.Messages()));
             });
         }
     }
@@ -48,7 +86,6 @@ function chatViewModel(data) {
     self.load = function (dataJson) {
         debugger;
         if (dataJson) {
-            ko.mapping.fromJSON(dataJson, {}, self);
             var dataJs = ko.mapping.fromJSON(dataJson);
             self.loadConversations(dataJs.Conversations());
         }

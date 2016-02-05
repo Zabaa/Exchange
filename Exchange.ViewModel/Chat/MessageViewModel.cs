@@ -14,5 +14,6 @@ namespace Exchange.ViewModel.Chat
         public string Content { get; set; }
         public DateTime Date { get; set; }
         public int ConversationId { get; set; }
+        public bool IsSender { get; set; }
     }
 }

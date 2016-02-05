@@ -13,5 +13,6 @@ namespace Exchange.Domain.Chat
 
         public string Content { get; set; }
         public DateTime Date { get; set; }
+        public bool IsSender { get; set; }
     }
 }
