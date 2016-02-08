@@ -18,3 +18,13 @@ function initializeDatePicker() {
         autoclose: true
     });
 };
+
+function scrollToBottom(elementId) {
+    var objOffers = document.getElementById(elementId);
+    objOffers.scrollTop = objOffers.scrollHeight;
+};
+
+function scrollToBottomAnimate(elementId) {
+    var auctionOffers = $("#" + elementId);
+    auctionOffers.animate({ scrollTop: auctionOffers.prop("scrollHeight") }, 1000);
+};

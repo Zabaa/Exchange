@@ -9,6 +9,8 @@ using Exchange.Domain.Chat;
 using Exchange.ViewModel.Chat;
 using Mapster;
 using Microsoft.AspNet.Identity;
+using NLog;
+using NLog.Fluent;
 
 namespace Exchange.Controllers
 {
@@ -16,6 +18,7 @@ namespace Exchange.Controllers
     public class ChatController : Controller
     {
         private readonly IConversationService _conversationService;
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public ChatController(IConversationService conversationService)
         {
@@ -29,10 +32,31 @@ namespace Exchange.Controllers
                 TypeAdapter.Adapt<IEnumerable<Conversation>, IEnumerable<ConversationViewModel>>(conversations);
             var chatViewModel = new ChatViewModel
             {
-                Conversations = conversationViewModel
+                Conversations = conversationViewModel,
+                CurrentUserId = User.Identity.GetUserId()
             };
 
             return View(chatViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult AddMessage(MessageViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return Json(new { success = false });
+
+            var message = TypeAdapter.Adapt<MessageViewModel, Message>(viewModel);
+
+            try
+            {
+                _conversationService.AddMessage(message);
+                return Json(new { success = true });
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e);
+                return Json(new { success = false });
+            }
         }
     }
 }

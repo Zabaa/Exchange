@@ -7,11 +7,11 @@
     self.IsSender = isSender;
 
     self.MessageSide = ko.computed(function() {
-        return self.IsSender ? "left" : "right";
+        return self.IsSender() ? "left" : "right";
     });
 
     self.MessageContentSide = ko.computed(function () {
-        return self.IsSender ? "pull-left" : "pull-right";
+        return self.IsSender() ? "pull-left" : "pull-right";
     });
 
     self.ImgSource = ko.computed(function() {
@@ -21,25 +21,67 @@
     });
 }
 
-function chatConversation(id, recipientId, recipientName, senderId, senderName, messages) {
+function chatConversation(id, currentUserId, recipientId, recipientName, senderId, senderName, messages, addMessageUrl) {
     var self = this;
     self.Id = id;
+    self.CurrentUserId = currentUserId;
     self.RecipientId = recipientId;
     self.RecipientName = recipientName;
     self.SenderId = senderId;
     self.SenderName = senderName;
     self.Messages = ko.observableArray();
+    self.MessagesContent = ko.observable();
+    
+    self.CurrentUserIsSender = ko.computed(function() {
+        return self.CurrentUserId === self.SenderId;
+    });
+
+    self.addMessage = function(message) {
+        self.Messages.push(new chatMessage(
+            message.Id(),
+            message.ConversationId(),
+            message.Content(),
+            message.Date(),
+            message.IsSender()));
+    }
+
+    self.submitOffer = function (formElement) {
+        $(formElement).validate();
+        if (!$(formElement).valid()) {
+            return false;
+        }
+
+        var actualDateTime = new Date().toISOString();
+        var message = new chatMessage(null, self.Id, self.MessagesContent(), actualDateTime, self.CurrentUserIsSender);
+
+        $.ajax({
+            url: addMessageUrl,
+            type: "POST",
+            cache: false,
+            data: message,
+            success: function (result) {
+                if (result.success) {
+                    console.log("Wiadomość wysłana");
+                } else if (result.success === false) {
+                    alert("Wystąpił błąd");
+                } else {
+                    alert("Wystąpił błąd");
+                }
+            }
+        });
+        return false;
+    }
 
     self.loadMessages = function (messages) {
         if (messages) {
             self.Messages.removeAll();
             ko.utils.arrayForEach(messages, function (message) {
                 self.Messages.push(new chatMessage(
-                    message.Id(),
-                    message.ConversationId(),
-                    message.Content(),
-                    message.Date(),
-                    message.IsSender()));
+                    message.Id,
+                    message.ConversationId,
+                    message.Content,
+                    message.Date,
+                    message.IsSender));
             });
         }
     }
@@ -53,11 +95,12 @@ function chatContact(recipientId, status) {
 }
 
 
-function chatViewModel(data) {
+function chatViewModel(data, addMessageUrl) {
     var self = this;
 
     self.ContactList = ko.observableArray();
     self.Conversations = ko.observableArray();
+    self.CurrentUserId = ko.observable();
 
     self.loadContacts = function (contacts) {
         if (contacts) {
@@ -74,11 +117,13 @@ function chatViewModel(data) {
             ko.utils.arrayForEach(conversations, function (conversation) {
                 self.Conversations.push(new chatConversation(
                     conversation.Id(),
+                    self.CurrentUserId(),
                     conversation.RecipientId(),
                     conversation.RecipientName(),
                     conversation.SenderId(),
                     conversation.SenderName(),
-                    conversation.Messages()));
+                    conversation.Messages(),
+                    addMessageUrl));
             });
         }
     }
@@ -87,6 +132,7 @@ function chatViewModel(data) {
         debugger;
         if (dataJson) {
             var dataJs = ko.mapping.fromJSON(dataJson);
+            self.CurrentUserId(dataJs.CurrentUserId());
             self.loadConversations(dataJs.Conversations());
         }
     }

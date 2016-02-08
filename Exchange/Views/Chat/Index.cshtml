@@ -16,7 +16,7 @@
                 <li><a data-bind="attr: { 'data-target': '#' + Id }, text: RecipientName" data-toggle="tab"></a></li>
             </ul>
             <div class="tab-content">
-            <!-- ko foreach: Conversations -->
+                <!-- ko foreach: Conversations -->
                 <div class="tab-pane" id="home" data-bind="attr: { id : Id }">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="panel-body panel-body-chat">
-                            <ul class="chat" data-bind="foreach: Messages">
+                            <ul class="chat" data-bind="foreach: Messages" id="chatMessages">
                                 <li class="clearfix" data-bind="css: MessageSide">
                                     <span class="chat-img" data-bind="css: MessageContentSide">
                                         <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar" class="img-circle" data-bind="attr: { src: ImgSource }">
@@ -79,18 +79,20 @@
                             </ul>
                         </div>
                         <div class="panel-footer">
-                            <div class="input-group">
-                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-warning btn-sm" id="btn-chat">
-                                        Send
-                                    </button>
-                                </span>
-                            </div>
+                            <form class="form-inline" data-bind="submit: submitOffer">
+                                <div class="input-group">
+                                    <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-warning btn-sm" id="btn-chat">
+                                            Send
+                                        </button>
+                                    </span>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-            <!-- /ko -->
+                <!-- /ko -->
             </div>
         </div>
         <div class="col-md-3">
@@ -123,8 +125,11 @@
     <script>
         $(document).ready(function () {
             var model = '@Html.Raw(HttpUtility.JavaScriptStringEncode(Newtonsoft.Json.JsonConvert.SerializeObject(Model)))';
-            debugger;
-            var viewModel = new chatViewModel(model);
+            var addMessageUrl = '@Url.Action("AddMessage", "Chat")';
+            var viewModel = new chatViewModel(model, addMessageUrl);
+
+            scrollToBottom("chatMessages");
+
             ko.applyBindings(viewModel);
         });
     </script>

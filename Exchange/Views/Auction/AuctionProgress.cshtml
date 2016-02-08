@@ -99,12 +99,12 @@
             var validationRules = new ValidationRules(viewModel);
             validationRules.defineValidationRules();
 
-            scrollToBottom();
+            scrollToBottom("auctionOffers");
 
             var auctionHub = $.connection.auctionProgressHub;
             auctionHub.client.addStockPrice = function (auctionOffer) {
                 viewModel.addOffer(auctionOffer);
-                scrollToBottomAnimate();
+                scrollToBottomAnimate("auctionOffers");
             };
 
             $.connection.hub.start();

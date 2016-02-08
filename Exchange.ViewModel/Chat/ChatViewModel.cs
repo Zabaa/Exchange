@@ -9,5 +9,6 @@ namespace Exchange.ViewModel.Chat
     public class ChatViewModel
     {
         public IEnumerable<ConversationViewModel> Conversations { get; set; }
+        public string CurrentUserId { get; set; }
     }
 }

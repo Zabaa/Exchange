@@ -10,5 +10,6 @@ namespace Exchange.Abstract.Services
     public interface IConversationService
     {
         IEnumerable<Conversation> GetConversations(string userId);
+        void AddMessage(Message message);
     }
 }
