@@ -29,7 +29,7 @@ namespace Exchange.Hubs.AuctionProgress
 
         public void BroadcastAuctionProgress(AuctionOfferViewModel auctionOffer)
         {
-            _clients.All.addStockPrice(auctionOffer);
+            _clients.All.addOffer(auctionOffer);
         }
     }
 }

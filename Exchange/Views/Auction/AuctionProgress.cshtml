@@ -102,7 +102,7 @@
             scrollToBottom("auctionOffers");
 
             var auctionHub = $.connection.auctionProgressHub;
-            auctionHub.client.addStockPrice = function (auctionOffer) {
+            auctionHub.client.addOffer = function (auctionOffer) {
                 viewModel.addOffer(auctionOffer);
                 scrollToBottomAnimate("auctionOffers");
             };
