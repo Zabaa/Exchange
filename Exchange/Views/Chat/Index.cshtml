@@ -121,6 +121,8 @@
 {
     @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/Scripts/KnockoutModels/chatVM.js")
+    <script src="~/Scripts/jquery.signalR-2.1.2.js"></script>
+    <script src="~/signalr/hubs"></script>
 
     <script>
         $(document).ready(function () {
@@ -129,8 +131,14 @@
             var viewModel = new chatViewModel(model, addMessageUrl);
 
             scrollToBottom("chatMessages");
-
             ko.applyBindings(viewModel);
+
+            var chatHub = $.connection.chatMonitorHub;
+            chatHub.client.addMessage = function(message) {
+                console.log(message);
+            }
+
+            $.connection.hub.start();
         });
     </script>
 }

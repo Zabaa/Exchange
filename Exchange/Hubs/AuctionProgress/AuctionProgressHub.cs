@@ -3,6 +3,7 @@ using Microsoft.AspNet.SignalR;
 
 namespace Exchange.Hubs.AuctionProgress
 {
+    [Authorize]
     public class AuctionProgressHub : Hub
     {
         private readonly AuctionProgress _auctionProgress;

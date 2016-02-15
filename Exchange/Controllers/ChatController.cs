@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Exchange.Abstract.Services;
 using Exchange.Domain.Chat;
+using Exchange.Hubs.Chat;
 using Exchange.ViewModel.Chat;
 using Mapster;
 using Microsoft.AspNet.Identity;
@@ -50,6 +51,8 @@ namespace Exchange.Controllers
             try
             {
                 _conversationService.AddMessage(message);
+                ChatMonitor.Instance.SendMessage(User.Identity.GetUserId(), viewModel.Content);
+
                 return Json(new { success = true });
             }
             catch (Exception e)

@@ -212,8 +212,11 @@
     </Compile>
     <Compile Include="Hubs\AuctionProgress\AuctionProgress.cs" />
     <Compile Include="Hubs\AuctionProgress\AuctionProgressHub.cs" />
+    <Compile Include="Hubs\Chat\ChatMonitor.cs" />
+    <Compile Include="Hubs\Chat\ChatMonitorHub.cs" />
     <Compile Include="Hubs\StockMonitor\StockMonitor.cs" />
     <Compile Include="Hubs\StockMonitor\StockMonitorHub.cs" />
+    <Compile Include="Infrastructure\CustomUserIdProvider.cs" />
     <Compile Include="Infrastructure\ExchangeConfiguration.cs" />
     <Compile Include="Infrastructure\DbInitializer.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
