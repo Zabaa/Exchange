@@ -9,7 +9,7 @@ namespace Exchange.ViewModel.Chat
 {
     public class MessageViewModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [StringLength(512)]
         public string Content { get; set; }
         public DateTime Date { get; set; }

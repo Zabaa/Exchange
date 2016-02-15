@@ -110,14 +110,5 @@
             $.connection.hub.start();
         });
 
-        function scrollToBottom() {
-            var objOffers = document.getElementById("auctionOffers");
-            objOffers.scrollTop = objOffers.scrollHeight;
-        };
-
-        function scrollToBottomAnimate() {
-            var auctionOffers = $("auctionOffers");
-            auctionOffers.animate({ scrollTop: auctionOffers.prop("scrollHeight") }, 1000);
-        };
     </script>
 }

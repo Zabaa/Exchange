@@ -7,11 +7,11 @@
     self.IsSender = isSender;
 
     self.MessageSide = ko.computed(function() {
-        return self.IsSender() ? "left" : "right";
+        return self.IsSender ? "left" : "right";
     });
 
     self.MessageContentSide = ko.computed(function () {
-        return self.IsSender() ? "pull-left" : "pull-right";
+        return self.IsSender ? "pull-left" : "pull-right";
     });
 
     self.ImgSource = ko.computed(function() {
@@ -52,7 +52,7 @@ function chatConversation(id, currentUserId, recipientId, recipientName, senderI
         }
 
         var actualDateTime = new Date().toISOString();
-        var message = new chatMessage(null, self.Id, self.MessagesContent(), actualDateTime, self.CurrentUserIsSender);
+        var message = new chatMessage(null, self.Id, self.MessagesContent(), actualDateTime, self.CurrentUserIsSender());
 
         $.ajax({
             url: addMessageUrl,
@@ -77,11 +77,11 @@ function chatConversation(id, currentUserId, recipientId, recipientName, senderI
             self.Messages.removeAll();
             ko.utils.arrayForEach(messages, function (message) {
                 self.Messages.push(new chatMessage(
-                    message.Id,
-                    message.ConversationId,
-                    message.Content,
-                    message.Date,
-                    message.IsSender));
+                    message.Id(),
+                    message.ConversationId(),
+                    message.Content(),
+                    message.Date(),
+                    message.IsSender()));
             });
         }
     }

@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-md-8">
             <ul data-bind="foreach: Conversations" class="nav nav-tabs" id="chatTab">
-                <li><a data-bind="attr: { 'data-target': '#' + Id }, text: RecipientName" data-toggle="tab"></a></li>
+                <li><a data-bind="attr: { 'data-target': '#' + Id }, text: CurrentUserIsSender() ? RecipientName : SenderName" data-toggle="tab"></a></li>
             </ul>
             <div class="tab-content">
                 <!-- ko foreach: Conversations -->
@@ -70,7 +70,7 @@
                                         <div class="header">
                                             <strong class="primary-font" data-bind="css: { 'pull-right': !IsSender }, text: IsSender ? $parent.SenderName : $parent.RecipientName"></strong>
                                             <small class="text-muted" data-bind="css: { 'pull-right': IsSender }">
-                                                <span class=" glyphicon glyphicon-time" data-bind="text: Date"></span>
+                                                <span class="glyphicon glyphicon-time" data-bind="text: Date"></span>
                                             </small>
                                         </div>
                                         <p data-bind="text: Content"></p>
@@ -81,7 +81,7 @@
                         <div class="panel-footer">
                             <form class="form-inline" data-bind="submit: submitOffer">
                                 <div class="input-group">
-                                    <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here...">
+                                    <input id="btn-input" type="text" class="form-control input-sm" data-bind="value: MessagesContent" placeholder="Type your message here...">
                                     <span class="input-group-btn">
                                         <button class="btn btn-warning btn-sm" id="btn-chat">
                                             Send
