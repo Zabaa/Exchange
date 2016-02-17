@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange", "Exchange\Exchange.csproj", "{FE5B70FB-9178-4262-9EAE-9E36B6770FBD}"
 EndProject
@@ -18,6 +18,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.Abstract", "Exchange.Abstract\Exchange.Abstract.csproj", "{DE932A84-5E07-4A3C-A150-A3E639E10166}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.StockPriceGenerator", "Exchange.StockPriceGenerator\Exchange.StockPriceGenerator.csproj", "{6A256C7D-B77E-405F-90DA-394DAC5B2F5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6C0EF7B9-C1B2-4191-B300-C9449EA0AAA6}"
+	ProjectSection(SolutionItems) = preProject
+		WE-browsers.xml = WE-browsers.xml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

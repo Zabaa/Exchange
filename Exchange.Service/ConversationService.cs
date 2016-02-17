@@ -23,6 +23,11 @@ namespace Exchange.Service
             return _exchangeContext.Conversations.Where(c => c.SenderId.Equals(userId) || c.RecipientId.Equals(userId));
         }
 
+        public Conversation GetConversation(int id)
+        {
+            return _exchangeContext.Conversations.SingleOrDefault(c => c.Id == id);
+        }
+
         public void AddMessage(Message message)
         {
             _exchangeContext.Messages.Add(message);

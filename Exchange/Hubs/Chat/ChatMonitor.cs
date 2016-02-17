@@ -26,9 +26,10 @@ namespace Exchange.Hubs.Chat
             _clients = clients;
         }
 
-        public void SendMessage(string userId, string message)
+        public void SendMessage(string senderId, string recipientd, string message)
         {
-            _clients.User(userId).addMessage(message);
+            var users = new List<string> {senderId, recipientd};
+            _clients.Users(users).addMessage(message);
         }
     }
 }

@@ -45,7 +45,7 @@ function chatConversation(id, currentUserId, recipientId, recipientName, senderI
             message.IsSender()));
     }
 
-    self.submitOffer = function (formElement) {
+    self.submitMessage = function (formElement) {
         $(formElement).validate();
         if (!$(formElement).valid()) {
             return false;

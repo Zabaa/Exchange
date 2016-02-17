@@ -20,11 +20,22 @@ function initializeDatePicker() {
 };
 
 function scrollToBottom(elementId) {
-    var objOffers = document.getElementById(elementId);
-    objOffers.scrollTop = objOffers.scrollHeight;
+    var object = document.getElementById(elementId);
+    object.scrollTop = object.scrollHeight;
+};
+
+function scrollToBottomByClassName(className) {
+    var object = $("div.tab-pane.active").find("." + className);
+    var scrollHeight = object.prop("scrollHeight");
+    object.prop("scrollTop", scrollHeight);
 };
 
 function scrollToBottomAnimate(elementId) {
-    var auctionOffers = $("#" + elementId);
+    var object = $("#" + elementId);
+    object.animate({ scrollTop: object.prop("scrollHeight") }, 1000);
+};
+
+function scrollToBottomAnimateByClassName(className) {
+    var auctionOffers = $("div.tab-pane.active").find("." + className);
     auctionOffers.animate({ scrollTop: auctionOffers.prop("scrollHeight") }, 1000);
 };

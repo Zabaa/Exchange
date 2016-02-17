@@ -51,7 +51,9 @@ namespace Exchange.Controllers
             try
             {
                 _conversationService.AddMessage(message);
-                ChatMonitor.Instance.SendMessage(User.Identity.GetUserId(), viewModel.Content);
+                var conversation = _conversationService.GetConversation(message.ConversationId);
+
+                ChatMonitor.Instance.SendMessage(conversation.SenderId, conversation.RecipientId, viewModel.Content);
 
                 return Json(new { success = true });
             }

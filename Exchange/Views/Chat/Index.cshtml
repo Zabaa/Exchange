@@ -60,8 +60,8 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="panel-body panel-body-chat">
-                            <ul class="chat" data-bind="foreach: Messages" id="chatMessages">
+                        <div class="panel-body panel-body-chat chatMessagesScroll">
+                            <ul class="chat" data-bind="foreach: Messages">
                                 <li class="clearfix" data-bind="css: MessageSide">
                                     <span class="chat-img" data-bind="css: MessageContentSide">
                                         <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar" class="img-circle" data-bind="attr: { src: ImgSource }">
@@ -79,7 +79,7 @@
                             </ul>
                         </div>
                         <div class="panel-footer">
-                            <form class="form-inline" data-bind="submit: submitOffer">
+                            <form class="form-inline" data-bind="submit: submitMessage">
                                 <div class="input-group">
                                     <input id="btn-input" type="text" class="form-control input-sm" data-bind="value: MessagesContent" placeholder="Type your message here...">
                                     <span class="input-group-btn">
@@ -130,12 +130,13 @@
             var addMessageUrl = '@Url.Action("AddMessage", "Chat")';
             var viewModel = new chatViewModel(model, addMessageUrl);
 
-            scrollToBottom("chatMessages");
             ko.applyBindings(viewModel);
+            scrollToBottomByClassName("chatMessagesScroll");
 
-            var chatHub = $.connection.chatMonitorHub;
-            chatHub.client.addMessage = function(message) {
-                console.log(message);
+            var chatMonitorHub = $.connection.chatMonitorHub;
+            chatMonitorHub.client.addMessage = function (message) {
+                viewModel.addMessage(message);
+                scrollToBottomAnimateByClassName("chatMessagesScroll");
             }
 
             $.connection.hub.start();
