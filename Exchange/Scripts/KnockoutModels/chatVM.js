@@ -149,3 +149,7 @@ function chatViewModel(data, addMessageUrl) {
     }
     self.load(data);
 }
+
+function name(parameters) {
+    
+}
