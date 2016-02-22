@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using Exchange.Domain.Chat;
+using Exchange.ViewModel.Chat;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 
@@ -26,7 +28,7 @@ namespace Exchange.Hubs.Chat
             _clients = clients;
         }
 
-        public void SendMessage(string senderId, string recipientd, string message)
+        public void SendMessage(string senderId, string recipientd, MessageViewModel message)
         {
             var users = new List<string> {senderId, recipientd};
             _clients.Users(users).addMessage(message);

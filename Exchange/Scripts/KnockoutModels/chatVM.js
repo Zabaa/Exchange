@@ -72,10 +72,10 @@ function chatConversation(id, currentUserId, recipientId, recipientName, senderI
         return false;
     }
 
-    self.loadMessages = function (messages) {
-        if (messages) {
+    self.loadMessages = function (messagesToLoad) {
+        if (messagesToLoad) {
             self.Messages.removeAll();
-            ko.utils.arrayForEach(messages, function (message) {
+            ko.utils.arrayForEach(messagesToLoad, function (message) {
                 self.Messages.push(new chatMessage(
                     message.Id(),
                     message.ConversationId(),
@@ -101,6 +101,17 @@ function chatViewModel(data, addMessageUrl) {
     self.ContactList = ko.observableArray();
     self.Conversations = ko.observableArray();
     self.CurrentUserId = ko.observable();
+
+    self.addMessage = function (message) {
+        var observableMessage = ko.mapping.fromJS(message);
+        var conversation = ko.utils.arrayFirst(self.Conversations(), function(item) {
+            return item.Id === observableMessage.ConversationId();
+        });
+
+        if (conversation) {
+            conversation.addMessage(observableMessage);
+        }
+    };
 
     self.loadContacts = function (contacts) {
         if (contacts) {
