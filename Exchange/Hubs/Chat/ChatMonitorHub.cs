@@ -28,20 +28,26 @@ namespace Exchange.Hubs.Chat
 
         public override Task OnConnected()
         {
-            var user = Context.User;
-            Clients.Others.addContact(new { Id = user.Identity.GetUserId(), Name = user.Identity.Name });
+            string userName = Context.User.Identity.Name;
+            string userId = Context.User.Identity.GetUserId();
+
+            _chatMonitor.AddContact(userName, userId, Context.ConnectionId);
             return base.OnConnected();
         }
 
         public override Task OnReconnected()
         {
-            //TODO: chat log again
+            string userName = Context.User.Identity.Name;
+            string userId = Context.User.Identity.GetUserId();
+
+            _chatMonitor.AddContact(userName, userId, Context.ConnectionId);
             return base.OnReconnected();
         }
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            //TODO: chat logout
+            string userName = Context.User.Identity.Name;
+            _chatMonitor.RemoveContact(userName, Context.ConnectionId);
             return base.OnDisconnected(stopCalled);
         }
     }

@@ -127,6 +127,14 @@ function chatViewModel(data, addMessageUrl) {
         self.ContactList.push(new chatContact(contact.Id, contact.Name));
     }
 
+    self.removeContact = function(contact) {
+        if (!contact)
+            return;
+        self.ContactList.remove(function(item) {
+            return item.Name === contact.Name && item.Id === contact.Id;
+        });
+    }
+
     self.loadConversations = function (conversations) {
         if (conversations) {
             self.Conversations.removeAll();

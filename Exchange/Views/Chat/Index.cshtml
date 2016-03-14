@@ -140,6 +140,10 @@
                 viewModel.addContact(contact);
             }
 
+            chatMonitorHub.client.removeContact = function(contact) {
+                viewModel.removeContact(contact);
+            }
+
             $.connection.hub.start();
         });
     </script>
