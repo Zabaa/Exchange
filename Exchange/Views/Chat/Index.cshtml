@@ -101,15 +101,11 @@
                     <h3 class="panel-title">Lista kontaktów</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="list-group">
-                        <button type="button" class="list-group-item">Łukasz Zaborski <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
-                        <button type="button" class="list-group-item">Ilona Kośmider <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
-                        <button type="button" class="list-group-item">Spartakus <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
-                        <button type="button" class="list-group-item">James Bond <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
-                        <button type="button" class="list-group-item">Bruce Wayne <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
-                        <button type="button" class="list-group-item">Krasnal <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
-                        <button type="button" class="list-group-item">Sub-Zero <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
-                        <button type="button" class="list-group-item">George Michael <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
+                    <div class="list-group" data-bind="foreach: ContactList">
+                        <button type="button" class="list-group-item" data-bind="attr: { id : Id }">
+                            <span data-bind="text: Name"></span>
+                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -134,9 +130,14 @@
             scrollToBottomByClassName("chatMessagesScroll");
 
             var chatMonitorHub = $.connection.chatMonitorHub;
+
             chatMonitorHub.client.addMessage = function (message) {
                 viewModel.addMessage(message);
                 scrollToBottomAnimateByClassName("chatMessagesScroll");
+            }
+
+            chatMonitorHub.client.addContact = function(contact) {
+                viewModel.addContact(contact);
             }
 
             $.connection.hub.start();

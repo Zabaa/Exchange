@@ -4,6 +4,8 @@ using System.EnterpriseServices.CompensatingResourceManager;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.UI;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR;
 
 namespace Exchange.Hubs.Chat
@@ -23,9 +25,11 @@ namespace Exchange.Hubs.Chat
             _chatMonitor = chatMonitor;
         }
 
+
         public override Task OnConnected()
         {
-            //TODO: Chat log in
+            var user = Context.User;
+            Clients.Others.addContact(new { Id = user.Identity.GetUserId(), Name = user.Identity.Name });
             return base.OnConnected();
         }
 

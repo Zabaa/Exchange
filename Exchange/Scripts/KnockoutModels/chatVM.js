@@ -88,12 +88,11 @@ function chatConversation(id, currentUserId, recipientId, recipientName, senderI
     self.loadMessages(messages);
 }
 
-function chatContact(recipientId, status) {
+function chatContact(id, name) {
     var self = this;
-    self.RecipientId = recipientId;
-    self.Status = status;
+    self.Id = id;
+    self.Name = name;
 }
-
 
 function chatViewModel(data, addMessageUrl) {
     var self = this;
@@ -117,9 +116,15 @@ function chatViewModel(data, addMessageUrl) {
         if (contacts) {
             self.AuctionOffers.removeAll();
             ko.utils.arrayForEach(contacts, function (contact) {
-                self.ContactList.push(new chatContact(contact.RecipientId(), contact.Status()));
+                self.ContactList.push(new chatContact(contact.RecipientId(), contact.RecipientName()));
             });
         }
+    }
+
+    self.addContact = function(contact) {
+        if (!contact)
+            return;
+        self.ContactList.push(new chatContact(contact.Id, contact.Name));
     }
 
     self.loadConversations = function (conversations) {
