@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.EnterpriseServices.CompensatingResourceManager;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.UI;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR;
 
@@ -28,19 +22,13 @@ namespace Exchange.Hubs.Chat
 
         public override Task OnConnected()
         {
-            string userName = Context.User.Identity.Name;
-            string userId = Context.User.Identity.GetUserId();
-
-            _chatMonitor.AddContact(userName, userId, Context.ConnectionId);
+            AddOrUpdateContact();
             return base.OnConnected();
         }
 
         public override Task OnReconnected()
         {
-            string userName = Context.User.Identity.Name;
-            string userId = Context.User.Identity.GetUserId();
-
-            _chatMonitor.AddContact(userName, userId, Context.ConnectionId);
+            AddOrUpdateContact();
             return base.OnReconnected();
         }
 
@@ -49,6 +37,14 @@ namespace Exchange.Hubs.Chat
             string userName = Context.User.Identity.Name;
             _chatMonitor.RemoveContact(userName, Context.ConnectionId);
             return base.OnDisconnected(stopCalled);
+        }
+        
+        private void AddOrUpdateContact()
+        {
+            string userName = Context.User.Identity.Name;
+            string userId = Context.User.Identity.GetUserId();
+
+            _chatMonitor.AddContact(userName, userId, Context.ConnectionId);
         }
     }
 }
