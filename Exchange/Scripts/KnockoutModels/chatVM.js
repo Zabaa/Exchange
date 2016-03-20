@@ -114,9 +114,9 @@ function chatViewModel(data, addMessageUrl) {
 
     self.loadContacts = function (contacts) {
         if (contacts) {
-            self.AuctionOffers.removeAll();
+            self.ContactList.removeAll();
             ko.utils.arrayForEach(contacts, function (contact) {
-                self.ContactList.push(new chatContact(contact.RecipientId(), contact.RecipientName()));
+                self.ContactList.push(new chatContact(contact.value, contact.key));
             });
         }
     }

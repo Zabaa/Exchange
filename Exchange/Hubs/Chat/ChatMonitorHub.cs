@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR;
 
@@ -19,6 +21,12 @@ namespace Exchange.Hubs.Chat
             _chatMonitor = chatMonitor;
         }
 
+        public IDictionary<string, string> GetOnlineUsers()
+        {
+            return
+                (IDictionary<string, string>)
+                    _chatMonitor.GetOnlineUser().Where(u => !u.Key.Equals(Context.User.Identity.Name));
+        } 
 
         public override Task OnConnected()
         {

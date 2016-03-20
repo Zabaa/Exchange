@@ -15,8 +15,7 @@ namespace Exchange.Hubs.Chat
     public class ChatMonitor
     {
         private static readonly Lazy<ChatMonitor> _instance =
-            new Lazy<ChatMonitor>(
-                () => new ChatMonitor(GlobalHost.ConnectionManager.GetHubContext<ChatMonitorHub>().Clients));
+            new Lazy<ChatMonitor>(() => new ChatMonitor(GlobalHost.ConnectionManager.GetHubContext<ChatMonitorHub>().Clients));
 
         private IHubConnectionContext<dynamic> _clients;
 
@@ -73,6 +72,11 @@ namespace Exchange.Hubs.Chat
 
                 _updatingUsersOnlineList = false;
             }
+        }
+
+        public IDictionary<string, string> GetOnlineUser()
+        {
+            return _usersOnline;
         }
     }
 }
