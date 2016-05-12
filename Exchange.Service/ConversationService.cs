@@ -28,6 +28,15 @@ namespace Exchange.Service
             return _exchangeContext.Conversations.SingleOrDefault(c => c.Id == id);
         }
 
+        public void AddConversation(Conversation conversation)
+        {
+            if (!_exchangeContext.Users.Any(u => u.Id.Equals(conversation.RecipientId)))
+                return;
+
+            _exchangeContext.Conversations.Add(conversation);
+            _exchangeContext.SaveChanges();
+        }
+
         public void AddMessage(Message message)
         {
             _exchangeContext.Messages.Add(message);

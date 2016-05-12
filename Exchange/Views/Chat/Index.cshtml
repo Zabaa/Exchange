@@ -124,7 +124,8 @@
         $(document).ready(function () {
             var model = '@Html.Raw(HttpUtility.JavaScriptStringEncode(Newtonsoft.Json.JsonConvert.SerializeObject(Model)))';
             var addMessageUrl = '@Url.Action("AddMessage", "Chat")';
-            var viewModel = new chatViewModel(model, addMessageUrl);
+            var addConversationUrl = '@Url.Action("AddConverstion", "Chat")';
+            var viewModel = new chatViewModel(model, addMessageUrl, addConversationUrl);
 
             ko.applyBindings(viewModel);
             scrollToBottomByClassName("chatMessagesScroll");

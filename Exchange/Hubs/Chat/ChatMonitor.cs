@@ -40,6 +40,12 @@ namespace Exchange.Hubs.Chat
             _clients.Users(users).addMessage(message);
         }
 
+        public void AddConversation(Conversation conversation)
+        {
+            var users = new List<string> { conversation.SenderId, conversation.RecipientId };
+            _clients.Users(users).addConversation(conversation);
+        }
+
         public void AddContact(string name, string id, string connectionId)
         {
             lock (usersOnlineLock)

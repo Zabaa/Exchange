@@ -64,5 +64,27 @@ namespace Exchange.Controllers
                 return Json(new { success = false });
             }
         }
+
+        public JsonResult AddConverstion(string recipientId)
+        {
+            try
+            {
+                var conversation = new Conversation
+                {
+                    RecipientId = recipientId,
+                    SenderId = User.Identity.GetUserId()
+                };
+
+                _conversationService.AddConversation(conversation);
+                ChatMonitor.Instance.AddConversation(conversation);
+
+                return Json(new { success = true });
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e);
+                return Json(new { success = false });
+            }
+        }
     }
 }

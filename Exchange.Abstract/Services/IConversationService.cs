@@ -11,6 +11,7 @@ namespace Exchange.Abstract.Services
     {
         IEnumerable<Conversation> GetConversations(string userId);
         Conversation GetConversation(int id);
+        void AddConversation(Conversation conversation);
         void AddMessage(Message message);
     }
 }

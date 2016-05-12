@@ -94,7 +94,7 @@ function chatContact(id, name) {
     self.Name = name;
 }
 
-function chatViewModel(data, addMessageUrl) {
+function chatViewModel(data, addMessageUrl, addConversationUrl) {
     var self = this;
 
     self.ContactList = ko.observableArray();
@@ -150,6 +150,37 @@ function chatViewModel(data, addMessageUrl) {
                     addMessageUrl));
             });
         }
+    }
+    
+    self.createConversation = function (recipientId) {
+        $.ajax({
+            url: addConversationUrl,
+            type: "POST",
+            cache: false,
+            data: { recipientId : recipientId },
+            success: function (result) {
+                if (result.success) {
+                    console.log("Konwersacja dodana");
+                } else if (result.success === false) {
+                    alert("Wystąpił błąd");
+                } else {
+                    alert("Wystąpił błąd");
+                }
+            }
+        });
+        return false;
+    }
+
+    self.addConversation = function(conversation) {
+        self.Conversations.push(new chatConversation(
+            conversation.Id,
+            self.CurrentUserId,
+            conversation.RecipientId,
+            conversation.RecipientName,
+            conversation.SenderId,
+            conversation.SenderName,
+            conversation.Messages,
+            addMessageUrl));
     }
 
     self.load = function (dataJson) {
