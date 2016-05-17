@@ -7,6 +7,8 @@ using System.Reflection;
 using System.ServiceProcess;
 using System.Threading;
 using NLog;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Exchange.StockPriceGenerator
 {
@@ -45,7 +47,7 @@ namespace Exchange.StockPriceGenerator
             eventLog.WriteEntry("Start StockPriceGenerator service");
 
             System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Interval = 2000;
+            timer.Interval = 5000;
             timer.Elapsed += new System.Timers.ElapsedEventHandler(this.SetRandomStockPrice);
             timer.Start();
         }
@@ -64,7 +66,7 @@ namespace Exchange.StockPriceGenerator
                     if (!_updatingStockPrice)
                     {
                         _updatingStockPrice = true;
-                        var stocks = _stockService.GetStocks();
+                        IList<Stock> stocks = _stockService.GetStocks().ToList();
                         foreach (var stock in stocks)
                         {
                             if (TryUpdateStockPrice(stock))

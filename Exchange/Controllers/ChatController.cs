@@ -65,6 +65,7 @@ namespace Exchange.Controllers
             }
         }
 
+        [HttpPost]
         public JsonResult AddConverstion(string recipientId)
         {
             try
