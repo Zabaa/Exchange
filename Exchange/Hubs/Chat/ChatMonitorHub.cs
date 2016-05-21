@@ -21,11 +21,9 @@ namespace Exchange.Hubs.Chat
             _chatMonitor = chatMonitor;
         }
 
-        public IDictionary<string, string> GetOnlineUsers()
+        public IEnumerable<KeyValuePair<string, string>> GetOnlineUsers()
         {
-            return
-                (IDictionary<string, string>)
-                    _chatMonitor.GetOnlineUser().Where(u => !u.Key.Equals(Context.User.Identity.Name));
+            return _chatMonitor.GetOnlineUser().Where(u => !u.Key.Equals(Context.User.Identity.Name));
         } 
 
         public override Task OnConnected()

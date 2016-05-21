@@ -23,7 +23,7 @@ namespace Exchange.Service
 
         public IEnumerable<Stock> GetStocks()
         {
-            return _exchangeContext.Stocks;
+            return _exchangeContext.Stocks.ToList();
         }
 
         public Stock GetStock(int id)

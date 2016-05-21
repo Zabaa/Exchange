@@ -102,7 +102,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="list-group" data-bind="foreach: ContactList">
-                        <button type="button" class="list-group-item" data-bind="attr: { id : Id }">
+                        <button type="button" class="list-group-item" data-bind="attr: { id : Id }, click: $parent.createConversation">
                             <span data-bind="text: Name"></span>
                             <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                         </button>

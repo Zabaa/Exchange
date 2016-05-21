@@ -116,7 +116,7 @@ function chatViewModel(data, addMessageUrl, addConversationUrl) {
         if (contacts) {
             self.ContactList.removeAll();
             ko.utils.arrayForEach(contacts, function (contact) {
-                self.ContactList.push(new chatContact(contact.value, contact.key));
+                self.ContactList.push(new chatContact(contact.Value, contact.Key));
             });
         }
     }
@@ -152,12 +152,12 @@ function chatViewModel(data, addMessageUrl, addConversationUrl) {
         }
     }
     
-    self.createConversation = function (recipientId) {
+    self.createConversation = function (contact) {
         $.ajax({
             url: addConversationUrl,
             type: "POST",
             cache: false,
-            data: { recipientId : recipientId },
+            data: { recipientId: contact.Id },
             success: function (result) {
                 if (result.success) {
                     console.log("Konwersacja dodana");
