@@ -40,7 +40,7 @@ namespace Exchange.Hubs.Chat
             _clients.Users(users).addMessage(message);
         }
 
-        public void AddConversation(Conversation conversation)
+        public void AddConversation(ConversationViewModel conversation)
         {
             var users = new List<string> { conversation.SenderId, conversation.RecipientId };
             _clients.Users(users).addConversation(conversation);

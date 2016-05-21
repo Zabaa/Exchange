@@ -62,6 +62,7 @@ function chatConversation(id, currentUserId, recipientId, recipientName, senderI
             success: function (result) {
                 if (result.success) {
                     console.log("Wiadomość wysłana");
+                    self.MessagesContent("");
                 } else if (result.success === false) {
                     alert("Wystąpił błąd");
                 } else {

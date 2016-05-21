@@ -77,8 +77,14 @@ namespace Exchange.Controllers
                 };
 
                 _conversationService.AddConversation(conversation);
-                ChatMonitor.Instance.AddConversation(conversation);
 
+                if (conversation.Id != default(int))
+                {
+                    conversation = _conversationService.GetConversation(conversation.Id);
+                    var conversationViewModel = TypeAdapter.Adapt<Conversation, ConversationViewModel>(conversation);
+                    ChatMonitor.Instance.AddConversation(conversationViewModel);
+                }
+                    
                 return Json(new { success = true });
             }
             catch (Exception e)
