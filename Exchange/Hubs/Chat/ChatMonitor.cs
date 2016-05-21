@@ -19,7 +19,7 @@ namespace Exchange.Hubs.Chat
 
         private IHubConnectionContext<dynamic> _clients;
 
-        private ConcurrentDictionary<string, string> _usersOnline = new ConcurrentDictionary<string, string>();
+        private readonly ConcurrentDictionary<string, string> _usersOnline = new ConcurrentDictionary<string, string>();
         private readonly object usersOnlineLock = new object();
         private volatile bool _updatingUsersOnlineList = false;
 

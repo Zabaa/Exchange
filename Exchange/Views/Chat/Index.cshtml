@@ -145,6 +145,10 @@
                 viewModel.removeContact(contact);
             }
 
+            chatMonitorHub.client.addConversation = function (conversation) {
+                viewModel.addConversation(conversation);
+            }
+
             $.connection.hub.start().done(function() {
                 chatMonitorHub.server.getOnlineUsers().done(function(onlineUsers) {
                     viewModel.loadContacts(onlineUsers);
