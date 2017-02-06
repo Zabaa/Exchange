@@ -256,6 +256,7 @@
     <Content Include="Scripts\c3.js" />
     <Content Include="Scripts\c3.min.js" />
     <Content Include="Scripts\KnockoutModels\chatVM.js" />
+    <Content Include="Scripts\KnockoutModels\stockPriceVM.js" />
     <Content Include="Scripts\validationRules.js" />
     <Content Include="Scripts\d3.js" />
     <Content Include="Scripts\d3.min.js" />

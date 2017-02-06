@@ -1,12 +1,9 @@
-﻿@using System.Web.UI.WebControls
-@model dynamic
-
+﻿@model dynamic
 @{
     ViewBag.Title = "Monitor Akcji";
 }
 
 <h2>@ViewBag.Title</h2>
-
 
 <div id="stockTable" class="row">
     <table class="table table-striped table-bordered">
@@ -19,8 +16,14 @@
                 <th>%</th>
             </tr>
         </thead>
-        <tbody>
-            <tr class="loading"><td colspan="5">loading...</td></tr>
+        <tbody data-bind="foreach: stocks">
+            <tr>
+                <td data-bind="text: symbol" />
+                <td data-bind="text: priceDisplay" />
+                <td data-bind="text: dayOpenDisplay" />
+                <td data-bind="text: changeDisplay" />
+                <td data-bind="text: percentChangeDisplay" />
+            </tr>
         </tbody>
     </table>
 </div>
@@ -37,63 +40,35 @@
     <script src="~/Scripts/jquery.signalR-2.1.2.js"></script>
     <script src="~/signalr/hubs"></script>
 
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/Scripts/KnockoutModels/stockPriceVM.js")
     @Scripts.Render("~/bundles/c3")
 
     <script>
-        if (!String.prototype.supplant) {
-            String.prototype.supplant = function(o) {
-                return this.replace(/{([^{}]*)}/g,
-                    function(a, b) {
-                        var r = o[b];
-                        return typeof r === 'string' || typeof r === 'number' ? r : a;
-                    }
-                );
-            };
-        }
-
-        $(function() {
-
+        $(function () {
             var chart = c3.generate({
                 bindto: '#chart',
                 data: {
-                    x: 'x',
-                    columns: [
-                        //['x'].concat(['2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06']),
-                        //['data1'].concat([30, 200, 100, 400, 150, 250]),
-                        //['data2'].concat([50, 20, 10, 40, 15, 25])
-                    ],
-                    xFormat: '%Y-%m-%d %H:%M:%S'
+                    columns: []
                 },
                 axis: {
                     x: {
                         type: 'timeseries',
                         tick: {
-                            format: '%H:%M:%S'
+                            format: '%Y-%m-%d %H:%M:%S'
                         }
                     }
                 }
             });
 
-            var ticker = $.connection.stockMonitorHub,
-                chartStocks = {},
-                chartTime = [],
-                up = '▲',
-                down = '▼',
-                $stockTable = $('#stockTable'),
-                $stockTableBody = $stockTable.find('tbody'),
-                rowTemplate = '<tr data-symbol="{Symbol}"><td>{Symbol}</td><td>{Price}</td><td>{DayOpen}</td><td>{Direction} {Change}</td><td>{PercentChange}</td></tr>';
+            var viewModel = new stockMonitorViewModel();
+            ko.applyBindings(viewModel);
+            
 
-            function formatStock(stock) {
-                return $.extend(stock, {
-                    Price: stock.Price.toFixed(2),
-                    PercentChange: (stock.PercentChange * 100).toFixed(2) + '%',
-                    Direction: stock.Change === 0 ? '' : stock.Change >= 0 ? up : down
-                });
-            }
+            var ticker = $.connection.stockMonitorHub,
+                chartStocks = {};
 
             function updateChart(stock) {
-                var key;
-                var lastValue;
                 if (chartStocks[stock.Symbol] === undefined || chartStocks[stock.Symbol].values === undefined) {
                     chartStocks[stock.Symbol] = {};
                     chartStocks[stock.Symbol].values = [stock.Price];
@@ -113,47 +88,39 @@
                     }
                 }
 
+
+                var stockSymbol = stock.Symbol;
+                var xStockSymbol = 'x' + stockSymbol;
+
                 chart.load({
+                    xs: {
+                        stockSymbol: xStockSymbol
+                    },
                     columns: [
-                        [stock.Symbol].concat(chartStocks[stock.Symbol].values),
-                        ['x'].concat(chartStocks[stock.Symbol].time)
+                        [xStockSymbol].concat(chartStocks[stock.Symbol].time),
+                        [stockSymbol].concat(chartStocks[stock.Symbol].values)
                     ]
                 });
+
+                
             }
 
             function init() {
                 ticker.server.getAllStocks().done(function(stocks) {
-                    $stockTableBody.empty();
-                    $.each(stocks, function() {
-                        var stock = formatStock(this);
-                        $stockTableBody.append(rowTemplate.supplant(stock));
+                    viewModel.loadStocks(stocks);
+
+                    $.each(stocks, function (stock) {
                         updateChart(stock);
                     });
                 });
             };
 
             ticker.client.updateStockPrice = function(stock) {
-                var displayStock = formatStock(stock),
-                    $row = $(rowTemplate.supplant(displayStock));
-
-                $stockTableBody.find('tr[data-symbol=' + stock.Symbol + ']')
-                    .replaceWith($row);
-
+                viewModel.updateStockPrice(stock);
                 updateChart(stock);
             }
 
-            ticker.client.updateStocksPrice = function(stocks) {
-                $stockTableBody.empty();
-                $.each(stocks, function () {
-                    var stock = formatStock(this);
-                    $stockTableBody.append(rowTemplate.supplant(stock));
-                    //updateChart(stock);
-                });
-            }
-
             $.connection.hub.start().done(init);
-
         });
-
     </script>
 }

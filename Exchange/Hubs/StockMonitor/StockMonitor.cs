@@ -22,18 +22,8 @@ namespace Exchange.Hubs.StockMonitor
 
         private readonly ConcurrentDictionary<string, Stock> _stocks = new ConcurrentDictionary<string, Stock>();
 
-        private readonly object _updateStockPricesLock = new object();
-
-        //stock can go up or down by a percentage of this factor on each change
-        private const double RangePercent = .002;
-
-        private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(250);
-        private readonly Random _updateOrNotRandom = new Random();
-
-        private volatile bool _updatingStockPrices = false;
 
         private readonly StockService _stockService;
-
         private static SqlTableDependency<Stock> _stockDependency;
 
         private StockMonitor(IHubConnectionContext<dynamic> clients)
@@ -42,12 +32,12 @@ namespace Exchange.Hubs.StockMonitor
             _stockService = new StockService();
 
             _stockDependency = new SqlTableDependency<Stock>(ExchangeConfiguration.ConnectionString, "Stock");
-            _stockDependency.OnChanged += _stockDependency_OnChanged;
-            _stockDependency.OnError += _tableDependency_OnError;
+            _stockDependency.OnChanged += StockDependencyOnChanged;
+            _stockDependency.OnError += TableDependencyOnError;
             _stockDependency.Start();
         }
 
-        private void _stockDependency_OnChanged(object sender, RecordChangedEventArgs<Stock> e)
+        private void StockDependencyOnChanged(object sender, RecordChangedEventArgs<Stock> e)
         {
             if (e.ChangeType != ChangeType.None)
             {
@@ -55,7 +45,7 @@ namespace Exchange.Hubs.StockMonitor
             }
         }
 
-        private void _tableDependency_OnError(object sender, ErrorEventArgs e)
+        private void TableDependencyOnError(object sender, ErrorEventArgs e)
         {
             throw new TableDependencyException(e.Message, e.Error);
         }
@@ -76,7 +66,7 @@ namespace Exchange.Hubs.StockMonitor
 
         public IEnumerable<Stock> GetAllStocks()
         {
-            if (!_stocks.Any())  
+            if (!_stocks.Any())
             {
                 var stocks = _stockService.GetStocks();
                 foreach (var stock in stocks)
@@ -88,52 +78,6 @@ namespace Exchange.Hubs.StockMonitor
             return _stocks.Values;
         }
 
-        private void BroadcastStocksPrice(IEnumerable<Stock> stocks)
-        {
-            Clients.All.updateStocksPrice(stocks);
-        }
-
-        private void UpdateStockPrices(object state)
-        {
-            lock (_updateStockPricesLock)
-            {
-                if (!_updatingStockPrices)
-                {
-                    _updatingStockPrices = true;
-
-                    foreach (var stock in _stocks.Values)
-                    {
-                        if (TryUpdateStockPrice(stock))
-                        {
-                            BroadcastStockPrice(stock);
-                        }
-                    }
-
-                    _updatingStockPrices = false;
-                }
-            }
-        }
-
-        private bool TryUpdateStockPrice(Stock stock)
-        {
-            // Randomly choose whether to update this stock or not
-            var r = _updateOrNotRandom.NextDouble();
-            if (r > .1)
-            {
-                return false;
-            }
-
-            // Update the stock price by a random factor of the range percent
-            var random = new Random((int)Math.Floor(stock.Price));
-            var percentChange = random.NextDouble() * RangePercent;
-            var pos = random.NextDouble() > .51;
-            var change = Math.Round(stock.Price * (decimal)percentChange, 2);
-            change = pos ? change : -change;
-
-            stock.Price += change;
-            return true;
-        }
-
         private void BroadcastStockPrice(Stock stock)
         {
             Clients.All.updateStockPrice(stock);
@@ -141,7 +85,7 @@ namespace Exchange.Hubs.StockMonitor
 
         #region Dispose
 
-        private bool disposedValue = false; // To detect redundant calls
+        private bool disposedValue = false;
 
         protected virtual void Dispose(bool disposing)
         {

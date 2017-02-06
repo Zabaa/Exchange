@@ -47,7 +47,7 @@ namespace Exchange.StockPriceGenerator
             eventLog.WriteEntry("Start StockPriceGenerator service");
 
             System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Interval = 5000;
+            timer.Interval = 2000;
             timer.Elapsed += new System.Timers.ElapsedEventHandler(this.SetRandomStockPrice);
             timer.Start();
         }

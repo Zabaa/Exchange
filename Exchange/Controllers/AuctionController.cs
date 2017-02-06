@@ -1,13 +1,9 @@
-﻿using Exchange.DataAccess.Context;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Exchange.Abstract.Services;
 using Exchange.Domain.Auction;
-using Exchange.Hubs.AuctionProgress;
 using Exchange.Infrastructure.Extensions;
 using Exchange.ViewModel.Auction;
 using Exchange.ViewModel.AuctionOffer;
@@ -52,7 +48,7 @@ namespace Exchange.Controllers
             var auction = _auctionService.GetAuction(id);
             var viewModel = TypeAdapter.Adapt<Auction, AuctionViewModel>(auction);
             viewModel.UserName = User.Identity.Name;
-
+            
             return View(viewModel);
         }
 
